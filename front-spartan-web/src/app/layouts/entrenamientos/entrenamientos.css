@@ -1,0 +1,15 @@
+.entrenamientos--wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.tus-entrenamientos {
+    flex: 1;
+    background-color: blue;
+}
+
+.spartan-entrenamientos {
+    flex: 1;
+    background-color: red;
+}

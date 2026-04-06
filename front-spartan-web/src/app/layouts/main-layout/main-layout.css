@@ -1,0 +1,13 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+}
+
+.main {
+    background-color: rgb(135, 206, 60);
+    flex:1;
+}
+
+
+

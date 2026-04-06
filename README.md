@@ -10,3 +10,23 @@ Por ahora no he avanzado mucho dada la complejidad del proyecto en cuanto a un c
 Uso de IA solamente estricto de manera informativa o inspiratoria.
 
 ![auth-mockup](./excalidraw/png/auth-component.png)
+
+# 06/04/2026
+
+Empezamos a diseñar la primera inferfaz de la APP "Palestra", que va a ser el área de entrenamientos, dado que la idea del desarrollo es mobile first estoy definiendo una estructura con un pequeño header y footer, header está aún por ver si saldrá en todas las páginas y el footer para seleccionar las diferentes opciones.
+
+He utilizado display flex, column y flex1 para poder tener un layout consistente y que no cambie para el resto de páginas.
+
+```css
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+}
+
+.main {
+    background-color: rgb(135, 206, 60);
+    flex:1;
+}
+
+``` 
