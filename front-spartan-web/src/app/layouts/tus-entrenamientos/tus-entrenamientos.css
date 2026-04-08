@@ -20,4 +20,39 @@
     padding: 10px;
     text-align: center;
     border-radius: 8px;
+    transition: 0.1s;
+}
+
+.button--container:active {
+    transform: scale(1.1);
+}
+
+.entrenamiento--card {
+    background-color: #1C1C1C;
+    width: 80dvw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card--wrapper {
+    border: 1px solid yellow;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    width: 100%;
+}
+
+.card--titulo {
+    border: 1px solid white;
+    background-color: #595353;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.card--container {
+    border: 1px solid white;
+    width: 80%;
+    margin-bottom: 12px;
 }
