@@ -30,3 +30,5 @@ He utilizado display flex, column y flex1 para poder tener un layout consistente
 }
 
 ``` 
+
+En móvil las pantallas dierentes no siempre tienen porque ser hijos de otras, ni que hereden layouts o estén junto a otros, ya que en las apps de móvil las diferentes secciones son muy diferentes unas de otras, con layouts complemtamente opuestos.

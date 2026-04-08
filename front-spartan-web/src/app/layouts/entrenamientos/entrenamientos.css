@@ -7,9 +7,17 @@
 .tus-entrenamientos {
     flex: 1;
     background-color: blue;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .spartan-entrenamientos {
     flex: 1;
     background-color: red;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
