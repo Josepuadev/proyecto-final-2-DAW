@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { Rutinas } from './layouts/rutinas/rutinas';
 
 export const routes: Routes = [
     {
@@ -9,4 +10,7 @@ export const routes: Routes = [
         path: '' ,
         loadChildren: () => import('./layouts/layouts.routes').then(m => m.LAYOUTS_ROUTES)
     },
+    {
+        path: 'rutinas', component: Rutinas,
+    }
 ];

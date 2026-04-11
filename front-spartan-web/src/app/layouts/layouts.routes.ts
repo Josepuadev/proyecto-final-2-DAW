@@ -2,6 +2,7 @@ import { Routes } from "@angular/router";
 import { MainLayout } from "./main-layout/main-layout";
 import { Entrenamientos } from "./entrenamientos/entrenamientos";
 import { TusEntrenamientos } from "./tus-entrenamientos/tus-entrenamientos";
+import { Rutinas } from "./rutinas/rutinas";
 
 export const LAYOUTS_ROUTES: Routes = [
     
@@ -10,8 +11,12 @@ export const LAYOUTS_ROUTES: Routes = [
         children: [
             {path: 'entrenamientos', component: Entrenamientos},
             {path: 'tus-entrenamientos', component: TusEntrenamientos},
+            
         ]
     },
+
+    
+    
 
     
     
