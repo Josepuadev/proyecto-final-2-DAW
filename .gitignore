@@ -1,2 +1,3 @@
 excalidraw
-TFG.odt
+*.odt
+.~lock.TFG.odt#
