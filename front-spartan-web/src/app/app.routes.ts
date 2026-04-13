@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { Rutinas } from './layouts/rutinas/rutinas';
+import { RutinasSave } from './layouts/rutinas-save/rutinas-save';
 
 export const routes: Routes = [
     {
@@ -12,5 +13,9 @@ export const routes: Routes = [
     },
     {
         path: 'rutinas', component: Rutinas,
+    },
+    {
+        path: 'rutinas-save', component: RutinasSave,
     }
+
 ];
