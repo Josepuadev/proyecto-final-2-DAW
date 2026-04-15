@@ -1,3 +1,4 @@
+
 .container--wrapper {
     display: flex;
     flex-direction: column;
@@ -27,33 +28,49 @@
     transform: scale(1.1);
 }
 
-.entrenamiento--card {
-    background-color: #1C1C1C;
-    width: 80dvw;
+.slider--wrapper {
+    border: 1px solid white;
+}
+.slider {
+    aspect-ratio: 1 / 1;
+    width: 70dvw;
+    height: 100%;
+    position: relative;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px;
+    flex-wrap: nowrap;
+    overflow: scroll;
+    scroll-snap-type: x mandatory;
+    border: 1px solid black; 
 }
 
-.card--wrapper {
-    border: 1px solid yellow;
-    display: flex;
+.caja {
+    min-width: 100%;
+    
+    left: 0;
+    position: sticky;
+    object-fit: cover;
+    border-radius: 5px;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    border: 1px solid black;
+    
+    display: flex; 
     flex-direction: column;
-    gap: 10px;
+    justify-content: space-around;
     padding: 10px;
-    width: 100%;
 }
 
-.card--titulo {
-    border: 1px solid white;
-    background-color: #595353;
-    width: 100%;
-    margin-bottom: 12px;
+.caja--grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
-.card--container {
-    border: 1px solid white;
-    width: 80%;
-    margin-bottom: 12px;
+.item--ejercicio {
+    width: 100px;
+    height: 100px;
+    background-color: #1C1C1C;
+    margin: 2px;
 }
+
+
+
