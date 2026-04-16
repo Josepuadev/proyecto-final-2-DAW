@@ -1,0 +1,51 @@
+.wrapper {
+    width: 90dvw;
+    padding: 10px;
+    gap: 15px;
+}
+
+.container--level{
+    display: flex;
+    justify-content: center;
+}
+
+.marco {
+    width: 50px;
+    height: 50px;
+    background-color: lightcoral;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.experiencia--bar {
+    height: 30px;
+    border-radius: 6px;
+    width: 100%;
+    position: relative;
+}
+
+.experiencia--bar__progres {
+    border-radius: 6px;
+    height: 25px;
+    width: 30%;
+    position: absolute;
+    background-color: lightgreen;
+    z-index: 10;
+    top: 1px;
+    left: 1px;
+}
+
+
+.experiencia--bar__gainned {
+    border-radius: 6px;
+    height: 25px;
+    width: 30%;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    background-color: lightblue;
+    width: 40%;
+    z-index: 5;
+}
