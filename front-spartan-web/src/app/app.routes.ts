@@ -16,6 +16,12 @@ export const routes: Routes = [
     },
     {
         path: 'rutinas-save', component: RutinasSave,
+    },
+    /**
+    {
+        path: 'perfil',
+        loadChildren: () => import('./layouts')
     }
+         */
 
 ];

@@ -3,6 +3,7 @@ import { MainLayout } from "./main-layout/main-layout";
 import { Entrenamientos } from "./entrenamientos/entrenamientos";
 import { TusEntrenamientos } from "./tus-entrenamientos/tus-entrenamientos";
 import { Rutinas } from "./rutinas/rutinas";
+import { Perfil } from "./perfil/perfil";
 
 export const LAYOUTS_ROUTES: Routes = [
     
@@ -11,9 +12,11 @@ export const LAYOUTS_ROUTES: Routes = [
         children: [
             {path: 'entrenamientos', component: Entrenamientos},
             {path: 'tus-entrenamientos', component: TusEntrenamientos},
+            {path: 'perfil', component: Perfil},
             
         ]
     },
+
 
     
     

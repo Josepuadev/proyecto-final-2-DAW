@@ -62,6 +62,8 @@
 
 .caja--grid {
     display: grid;
+    place-items: center;
+    gap: 2px;
     grid-template-columns: 1fr 1fr;
 }
 
