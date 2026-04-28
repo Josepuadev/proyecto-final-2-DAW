@@ -45,7 +45,7 @@
 
 .caja {
     min-width: 100%;
-    
+    background-color: #CD7F32;
     left: 0;
     position: sticky;
     object-fit: cover;
@@ -74,5 +74,7 @@
     margin: 2px;
 }
 
-
+div > button {
+    background-color: #8B0000;
+}
 

@@ -1,0 +1,29 @@
+<div class="min-h-screen bg-zinc-950 p-6">
+
+    <h1 class="text-2xl font-medium text-center text-zinc-100 mb-6">
+        RUTINAS ESPARTANAS
+    </h1>
+
+    <div class="grid grid-cols-2 gap-4">
+
+    @for (rutina of rutinasPrehechas; track rutina.id) {
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
+
+            <h2 class="text-zinc-100 font-medium mb-1">
+                {{ rutina.nombre }}
+            </h2>
+
+            <p class="text-zinc-400 text-sm mb-3">
+                {{ rutina.descripcion }}
+            </p>
+
+            <span class="text-zinc-500 text-xs">
+                {{ rutina.ejerciciosIds.length }} ejercicios
+            </span>
+
+        </div>
+    }
+
+  </div>
+
+</div>

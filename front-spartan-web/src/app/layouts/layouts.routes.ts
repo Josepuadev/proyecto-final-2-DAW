@@ -4,6 +4,7 @@ import { Entrenamientos } from "./entrenamientos/entrenamientos";
 import { TusEntrenamientos } from "./tus-entrenamientos/tus-entrenamientos";
 import { Rutinas } from "./rutinas/rutinas";
 import { Perfil } from "./perfil/perfil";
+import { SpartEntrenamientos } from "./spart-entrenamientos/spart-entrenamientos";
 
 export const LAYOUTS_ROUTES: Routes = [
     
@@ -12,6 +13,7 @@ export const LAYOUTS_ROUTES: Routes = [
         children: [
             {path: 'entrenamientos', component: Entrenamientos},
             {path: 'tus-entrenamientos', component: TusEntrenamientos},
+            {path: 'spart-entrenamientos', component: SpartEntrenamientos},
             {path: 'perfil', component: Perfil},
             
         ]

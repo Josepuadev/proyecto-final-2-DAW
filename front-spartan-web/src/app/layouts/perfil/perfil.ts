@@ -8,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class Perfil {
 
+  rathalos : string = './assets/images/rathalos.jpg';
+
 }

@@ -1,9 +1,11 @@
 <div class="entrenamientos--wrapper">
-    <div class="tus-entrenamientos">
-        <a routerLink="/tus-entrenamientos"><p>Tus Entrenamientos</p></a>
+    <div class="entrenamiento--container"
+        [ngStyle]="{'background-image': 'url('+ imgTusEntrenamientos +')'}">
+        <a routerLink="/tus-entrenamientos"><p>Tus entrenamientos</p></a>
     </div>
-    <div class="spartan-entrenamientos">
-        <a href=""><p>Entrenamientos Espartanos</p></a>
+    <div class="entrenamiento--container"
+        [ngStyle]="{'background-image': 'url('+ imgEntrenamientosEsp +')'}">
+        <a routerLink="/spart-entrenamientos"><p>Entrenamientos Espartanos</p></a>
     </div>
 </div>
 
