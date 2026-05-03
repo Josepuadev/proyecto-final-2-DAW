@@ -11,6 +11,7 @@ export const LAYOUTS_ROUTES: Routes = [
     {
         path: '', component: MainLayout,
         children: [
+            {path: '', component: Entrenamientos},
             {path: 'entrenamientos', component: Entrenamientos},
             {path: 'tus-entrenamientos', component: TusEntrenamientos},
             {path: 'spart-entrenamientos', component: SpartEntrenamientos},
@@ -20,9 +21,4 @@ export const LAYOUTS_ROUTES: Routes = [
     },
 
 
-    
-    
-
-    
-    
 ]

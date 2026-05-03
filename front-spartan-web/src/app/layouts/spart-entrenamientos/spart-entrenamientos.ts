@@ -1,32 +1,57 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Rutina } from '../../interfaces/rutina';
+import { NgClass } from '@angular/common';
+import { Rutinasespartanasservice } from '../../services/rutinasespartanas/rutinasespartanasservice';
+import { RutinaCard } from './rutina-card/rutina-card';
 
 @Component({
   selector: 'app-spart-entrenamientos',
-  imports: [],
+  imports: [NgClass, RutinaCard],
   templateUrl: './spart-entrenamientos.html',
   styleUrl: './spart-entrenamientos.css',
 })
 export class SpartEntrenamientos {
 
-  rutinasPrehechas: Rutina[] = [
-    {
-      id: 1,
-      nombre: 'Día de pecho',
-      descripcion: 'Empuja como un espartano',
-      ejerciciosIds: [1, 2, 3]
-    },
-    {
-      id: 2,
-      nombre: 'Dominación de espalda',
-      descripcion: 'Controla tu cuerpo o sé controlado',
-      ejerciciosIds: [4, 5]
-    },
-    {
-      id: 3,
-      nombre: 'Carrera del guerrero',
-      descripcion: 'Los espartanos nunca paran',
-      ejerciciosIds: [6]
+  private rutinasEspartanasService = inject(Rutinasespartanasservice);
+
+  rutinasPrehechas: Rutina[] = this.rutinasEspartanasService.obtenerTodasRutinas();
+
+  busqueda: string = '';
+
+  get rutinasFiltradas(): Rutina[] {
+    if (this.busqueda === '') {
+      return this.rutinasPrehechas;
     }
-  ]
+
+    return this.rutinasPrehechas.filter(rutina => 
+      rutina.nombre.toLowerCase().includes(this.busqueda.toLowerCase()) || 
+      rutina.descripcion.toLowerCase().includes(this.busqueda.toLowerCase())
+    )
+
+    
+  }
+
+  rutinaSeleccionada: Rutina | null = null;
+
+  seleccionarRutina(rutina: Rutina): void {
+    this.rutinaSeleccionada = rutina;
+  }
+
+  deseleccionar(): void {
+    this.rutinaSeleccionada = null;
+  }
+
+  contador: number = 0;
+
+  incrementar(): void {
+    this.contador += 1;
+  }
+
+  decrementar(): void {
+    this.contador -= 1;
+  }
+
+  reiniciar(): void {
+    this.contador = 0
+  }
 }
