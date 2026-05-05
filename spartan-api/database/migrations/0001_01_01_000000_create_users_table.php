@@ -18,7 +18,16 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+
+            // CAMPOS AÑADIDOS POR MI
+            $table->decimal('peso', 5,2)->nullable();
+            $table->decimal('altura', 5,2)->nullable();
+            $table->unsignedInteger('nivel_xp')->default(0); // Todos empezamos a nivel 1 sin xp
+            $table->unsignedBigInteger('id_rol')->nullable();
+            $table->unsignedBigInteger('id_rango')->nullable();
+
             $table->timestamps();
+            
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
