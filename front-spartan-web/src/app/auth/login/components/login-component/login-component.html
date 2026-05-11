@@ -1,1 +1,26 @@
-<p>login-component works!</p>
+
+<div class="h-[40dvh] w-full border border-amber-200 flex flex-col items-center justify-center text-2xl">
+    <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+
+
+        <div>
+            <label for="email">
+                <p>Email</p>
+                <input class="bg-amber-400 rounded-xl text-zinc-800 px-2 py-1 mb-2" 
+                       type="email" formControlName="email" id="email">
+            </label>
+
+            <label for="password">
+                <p>Contraseña</p>
+                <input class="bg-amber-400 rounded-xl text-zinc-800 px-2 py-1 mb-2" 
+                       type="password" formControlName="password" id="password">
+            </label>
+        </div>
+
+        <br>
+        <div class="text-center">
+            <button type="submit" class="bg-red-900 px-2 py-2 rounded-2xl">Iniciar Sesión</button>
+        </div>
+
+    </form>
+</div>

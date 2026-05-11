@@ -4,7 +4,13 @@ import { RegisterComponent } from "./register/components/register-component/regi
 import { AuthComponent } from "./components/auth-component/auth-component";
 
 export const AUTH_ROUTES: Routes = [
-    {path: '', component: AuthComponent},
-    {path: 'login', component: LoginComponent},
-    {path: 'register', component: RegisterComponent},
+    {
+        path: '', component: AuthComponent,
+        children: [
+            {path: '', redirectTo: 'login', pathMatch: 'full'},
+            {path: 'login', component: LoginComponent},
+            {path: 'register', component: RegisterComponent},
+        ]
+    },
+    
 ]

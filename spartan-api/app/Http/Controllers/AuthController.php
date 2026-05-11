@@ -18,8 +18,6 @@ class AuthController extends Controller
                 'name'      => 'required|string|max:100',
                 'email'     => 'required|email|unique:users,email',
                 'password'  => 'required|string|min:8|confirmed',
-                'peso'      => 'nullable|numeric|decimal:2',
-                'altura'    => 'nullable|numeric|decimal:2',
             ]);
 
 
@@ -28,8 +26,6 @@ class AuthController extends Controller
             $usuario->email     = $request->email;
             //Guardamos la pass de la request en hash, texto plano es poco seguro.
             $usuario->password  = Hash::make($request->password);
-            $usuario->peso      = $request->peso;
-            $usuario->altura    = $request->altura;
 
             $usuario->save();
             // Con este token cuando se registre el usuario lo guardaremos el localstorage
