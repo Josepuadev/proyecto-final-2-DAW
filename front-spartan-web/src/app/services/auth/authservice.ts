@@ -20,8 +20,15 @@ export class Authservice {
     return this.peticionesHttp.post(`${this.apiUrl}/login`, datos);
   }
 
-  guardarToken(token : string): void {
+  guardarCredencialesUser(token : string, usuario : any): void {
     localStorage.setItem('token', token);
+    localStorage.setItem('usuario', JSON.stringify(usuario));
+  }
+
+  obtenerUsuario() : any {
+    const usuario = localStorage.getItem('usuario');
+
+    return usuario ? JSON.parse(usuario) : null;
   }
 
   obtenerToken() : string | null {
@@ -30,6 +37,7 @@ export class Authservice {
 
   cerrarSesion() : void {
     localStorage.removeItem('token');
+    localStorage.removeItem('usuario');
   }
 
   estaLogeado() : boolean {

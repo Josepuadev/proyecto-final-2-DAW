@@ -76,7 +76,7 @@ export class RegisterComponent {
       next: (respuesta) => {
         // El token que generamos desde laravel y devolvemos como respuesta en el metodo
         // de register, pues se guarda con el metodo guardarToken ahora
-        this.authService.guardarToken(respuesta.token); 
+        this.authService.guardarCredencialesUser(respuesta.token, respuesta.user); 
         this.router.navigate(['/entrenamientos']);
       },
 
