@@ -1,26 +1,30 @@
 
-<div class="h-[40dvh] w-full border border-amber-200 flex flex-col items-center justify-center text-xl">
+<div class="h-[50dvh] w-full border border-amber-200 flex flex-col items-center justify-center text-l">
     <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
         <label for="name">
             <p>Nombre</p>
             <input class="bg-amber-400 rounded-xl text-zinc-800 px-2 py-1 mb-2" type="text" formControlName="name" id="name">
         </label>
+        <p class="text-red-800 text-xs min-h-4">{{ validadorMensajesError('name')}}</p>
 
         <label for="email">
             <p>Email</p>
             <input class="bg-amber-400 rounded-xl text-zinc-800 px-2 py-1 mb-2" type="email" formControlName="email" id="email">
         </label>
+        <p class="text-red-800 text-xs min-h-4">{{ validadorMensajesError('email')}}</p>
 
         <label for="password">
             <p>Contraseña</p>
             <input class="bg-amber-400 rounded-xl text-zinc-800 px-2 py-1 mb-2" type="password" formControlName="password" id="password">
         </label>
+        <p class="text-red-800 text-xs min-h-4">{{ validadorMensajesError('password')}}</p>
 
         <label for="password_confirmation">
             <p>Repetir Contraseña</p>
             <input class="bg-amber-400 rounded-xl text-zinc-800 px-2 py-1 mb-4" type="password" formControlName="password_confirmation" id="password_confirmation"/>
             <!--El name que Laravel busca exacatamente pa confirmar la contraseña-->
         </label>
+        <p class="text-red-800 text-xs min-h-4"> {{ validadorMensajesError('password_confirmation') }}</p>
 
         <br>
         <div class="text-center">

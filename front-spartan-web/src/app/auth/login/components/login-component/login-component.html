@@ -1,5 +1,5 @@
 
-<div class="h-[40dvh] w-full border border-amber-200 flex flex-col items-center justify-center text-2xl">
+<div class="h-[50dvh] w-full border border-amber-200 flex flex-col items-center justify-center text-l">
     <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
 
 
@@ -9,12 +9,15 @@
                 <input class="bg-amber-400 rounded-xl text-zinc-800 px-2 py-1 mb-2" 
                        type="email" formControlName="email" id="email">
             </label>
+            <p class="text-red-800 text-xs min-h-4">{{ validadorMensajesError('email') }}</p>
+
 
             <label for="password">
                 <p>Contraseña</p>
                 <input class="bg-amber-400 rounded-xl text-zinc-800 px-2 py-1 mb-2" 
                        type="password" formControlName="password" id="password">
             </label>
+            <p class="text-red-800 text-xs min-h-4">{{ validadorMensajesError('password') }}</p>
         </div>
 
         <br>
