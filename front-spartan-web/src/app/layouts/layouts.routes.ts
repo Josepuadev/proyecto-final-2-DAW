@@ -5,6 +5,7 @@ import { TusEntrenamientos } from "./tus-entrenamientos/tus-entrenamientos";
 import { Rutinas } from "./rutinas/rutinas";
 import { Perfil } from "./perfil/perfil";
 import { SpartEntrenamientos } from "./spart-entrenamientos/spart-entrenamientos";
+import { Ajustes } from "./ajustes/ajustes";
 
 export const LAYOUTS_ROUTES: Routes = [
     
@@ -16,6 +17,7 @@ export const LAYOUTS_ROUTES: Routes = [
             {path: 'tus-entrenamientos', component: TusEntrenamientos},
             {path: 'spart-entrenamientos', component: SpartEntrenamientos},
             {path: 'perfil', component: Perfil},
+            {path: 'ajustes', component: Ajustes},
             
         ]
     },

@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -11,6 +12,7 @@ export class Authservice {
   
   private peticionesHttp = inject(HttpClient);
   private apiUrl = environment.apiUrl;
+  private router = inject(Router);
 
   registrarse(datos: any): Observable<any> {
     return this.peticionesHttp.post(`${this.apiUrl}/register`, datos);
@@ -38,6 +40,7 @@ export class Authservice {
   cerrarSesion() : void {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
+    this.router.navigate(['/auth/login']);
   }
 
   estaLogeado() : boolean {
