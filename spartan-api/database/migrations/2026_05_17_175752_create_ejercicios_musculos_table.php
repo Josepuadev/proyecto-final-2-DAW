@@ -19,8 +19,6 @@ return new class extends Migration
             $table->foreign('ejercicio_id')->references('id')->on('ejercicios')->cascadeOnDelete();
             $table->foreign('musculo_id')->references('id')->on('musculos')->cascadeOnDelete();
             
-            $table->boolean('es_principal')->default(false);
-            $table->timestamps();
         });
     }
 

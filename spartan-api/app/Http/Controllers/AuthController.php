@@ -28,6 +28,9 @@ class AuthController extends Controller
             $usuario->password  = Hash::make($request->password);
 
             $usuario->save();
+            // Enviar correo con mail ( que las imagenes no vayan dentro del correo
+            // las dejo enlazadas en una carpeta del servidor)
+
             // Con este token cuando se registre el usuario lo guardaremos el localstorage
             // en el cliente con angular, asi cuando se registre tendrá su sesion abierta.
             $token = $usuario->createToken('tokenAutenticacion')->plainTextToken;

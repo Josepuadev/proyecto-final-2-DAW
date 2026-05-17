@@ -13,13 +13,18 @@ return new class extends Migration
     {
         Schema::create('ejercicios', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('tipo_id');
+            $table->foreign('tipo_id')->references('id')->on('tipo_ejercicios')->onDelete('cascade');
+            $table->unsignedBigInteger('medida_id');
+            $table->foreign('medida_id')->references('id')->on('unidad_medidas')->onDelete('cascade');
+
             $table->string('nombre',100);
             $table->string('descripcion')->nullable();
-            $table->enum('tipo', ['fuerza', 'calistenia', 'resistencia']);
+
             $table->unsignedBigInteger('orbes_fuerza')->default(0);
             $table->unsignedBigInteger('orbes_calistenia')->default(0);
             $table->unsignedBigInteger('orbes_resistencia')->default(0);
-            $table->string('imagen');
+            $table->string('imagen')->nullable();
             $table->timestamps();
 
         });
