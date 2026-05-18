@@ -12,9 +12,10 @@ Route::get('/user', function (Request $request) {
 // Sin middleware ya que no tenemos tokens ni nada aqui porque estamos entrandoa al servidor
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
+Route::get('/ejercicios', [EjercicioController::class, 'getEjercicios']);
 
 // Una forma fácil de agrupar todos los middleware en varias rutas
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/ejercicios', [EjercicioController::class, 'getEjercicios']);
+    
     Route::get('/logout', [AuthController::class, 'logout']);
 });
