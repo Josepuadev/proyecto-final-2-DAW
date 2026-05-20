@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         $this->call([
+            AdminSeed::class,
             UnidadMedidaSeed::class,
             TipoEjercicioSeed::class,
             MusculosSeeder::class,
@@ -24,7 +25,6 @@ class DatabaseSeeder extends Seeder
             CalisteniaSeeder::class,
             ResistenciaSeeder::class,
         ]);
-
 
     }
 }
