@@ -32,4 +32,8 @@ class User extends Authenticatable
             'altura'            => 'decimal:2',
         ];
     }
+
+    public function sesiones() {
+        return $this->hasMany(Sesion::class, 'usuario_id');
+    }
 }

@@ -21,9 +21,12 @@ return new class extends Migration
             $table->foreign('ejercicio_id')->references('id')->on('ejercicios')->onDelete('cascade');
 
             $table->integer('series')->nullable();
-            $table->integer('repeticiones')->nullable();
+            $table->integer('segundos_objetivo')->nullable();
+            $table->integer('metros_objetivo')->nullable();
+            $table->integer('repeticiones_objetivo');
             $table->decimal('peso', 5 , 2)->nullable();
             $table->integer('orden')->default(1);
+
 
             $table->timestamps();
         });

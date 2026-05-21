@@ -8,9 +8,9 @@ use App\Models\Rutina;
 
 class RutinaController extends Controller
 {
-    public function getRutinasUsuario(Request $request) {
+    public function getRutinasUsuario() {
         $rutinas = Rutina::with('ejercicios')
-                    ->where('usuario_id', auth()->id())->get();
+                            ->where('usuario_id', auth()->id())->get();
 
         return $rutinas;
     }

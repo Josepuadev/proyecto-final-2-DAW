@@ -5,6 +5,7 @@ use App\Http\Controllers\EjercicioController;
 use App\Http\Controllers\RutinaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SesionController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -13,14 +14,20 @@ Route::get('/user', function (Request $request) {
 // Sin middleware ya que no tenemos tokens ni nada aqui porque estamos entrandoa al servidor
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
-Route::get('/ejercicios', [EjercicioController::class, 'getEjercicios']);
-Route::get('/rutinas', [RutinaController::class, 'getRutinasUsuario']);
-Route::get('/rutinas-espartanas', [RutinaController::class, 'getRutinasEspartanas']);
 
 
 // Una forma fácil de agrupar todos los middleware en varias rutas
 Route::middleware('auth:sanctum')->group(function () {
     
     Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/ejercicios', [EjercicioController::class, 'getEjercicios']);
+    Route::get('/rutinas', [RutinaController::class, 'getRutinasUsuario']);
+    Route::get('/rutinas-espartanas', [RutinaController::class, 'getRutinasEspartanas']);
+
+    Route::post('/sesiones', [SesionController::class, 'crearSesion']);
+    Route::post('/sesiones/{sesion}/guardar', [SesionController::class, 'guardarSesion']);
+    Route::get('/sesiones', [SesionController::class, 'getSesiones']);
+    Route::get('/sesiones/{sesion}', [SesionController::class, 'getSesion']);
+
 
 });
