@@ -1,7 +1,9 @@
+
+<!--
 <div
     (click)="onClick()"
     class="card bg-zinc-950 rounded-2xl p-4 "
-    [class.seleccionada]="seleccionada">
+>
     <div>
         <h2 class="uppercase tracking-widest border-b border-amber-400 mb-4">{{rutinaEnviada.nombre}}</h2>
         <p class=" tracking-wide">{{rutinaEnviada.descripcion}}</p>
@@ -9,3 +11,39 @@
     </div>
 
 </div>
+-->
+
+<div class="insignia" (click)="onClick()">
+
+    <div class="escudo border-2 border-amber-400" [class.girar]="claseGiro()">
+        <lucide-icon
+            [name]="rutinaEnviada.icono"
+            [size]="32"
+            color="#dc2626"
+            >
+            
+        </lucide-icon>
+    </div>
+
+    <span class="insignia-nombre text-zinc-200 uppercase tracking-wide text-center">
+        {{rutinaEnviada.nombre}}
+    </span>
+</div>
+
+@if (modalVisible()) {
+    <div class="overlay" (click)="cerrarModal()">
+        <div class="modal border border-amber-400 rounded-2xl" (click)="$event.stopPropagation()">
+
+            <div class="modal-linea"></div>
+            <button class="modal-cerrar" (click)="cerrarModal()">X</button>
+
+            <h2 class="modal-titulo text-zinc-200 uppercase tracking-wide text-center"> {{ rutinaEnviada.nombre }} </h2>
+            <p class="modal-desc text-zinc-500"> {{ rutinaEnviada.descripcion }} </p>
+            <p class="modal-ejercicios text-red-600"> {{ rutinaEnviada.ejercicios?.length ?? 0}} ejercicios</p>
+
+            <button class="modal-btn" (click)="comenzar()">
+                Comenzar Batalla
+            </button>
+        </div>
+    </div>
+}

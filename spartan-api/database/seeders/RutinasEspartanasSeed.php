@@ -25,6 +25,7 @@ class RutinasEspartanasSeed extends Seeder
             'usuario_id' => 1,
             'nombre' => 'Parte pechos de Hoplitas',
             'descripcion' => 'Empuja el poder del mundo con tus brazos y pectorales con esta rutina.',
+            'icono' => 'dumbbell',
         ]);
 
         $rutinaPecho->ejercicios()->attach([
@@ -79,6 +80,7 @@ class RutinasEspartanasSeed extends Seeder
             'usuario_id' => 1,
             'nombre' => 'Demon Spartan Back',
             'descripcion' => 'Desgarra tus dorsales mientras escalas el monte olimpo',
+            'icono' => 'dumbbell',
         ]);
 
         $rutinaEspalda->ejercicios()->attach([

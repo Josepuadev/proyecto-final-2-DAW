@@ -19,6 +19,8 @@ return new class extends Migration
 
             $table->string('nombre', 255);
             $table->text('descripcion')->nullable();
+            $table->string('icono', 50)->default('dumbbell');
+
             $table->timestamps();
         });
     }

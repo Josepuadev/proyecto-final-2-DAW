@@ -10,6 +10,7 @@ class Rutina extends Model
         'usuario_id',
         'nombre',
         'descripcion',
+        'icono',
     ];
 
     public function usuario() // nombre del id que  referenciamos

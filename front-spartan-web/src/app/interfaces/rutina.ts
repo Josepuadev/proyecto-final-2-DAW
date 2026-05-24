@@ -5,6 +5,7 @@ export interface Rutina {
     usuario_id:  number;
     nombre:      string;
     descripcion: string;
+    icono:       string;
     ejercicios?: RutinaEjercicio[];
 }
 // solo las IDs — el backend tiene el resto

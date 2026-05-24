@@ -23,11 +23,10 @@
 
     <!-- Estado: datos cargados -->
     @if (rutinasSpartana.value()) {
-        <div class="grid grid-cols-1 gap-4">
+        <div class="grid grid-cols-1 gap-8">
             @for (rutina of rutinasSpartana.value(); track rutina.id) {
                 <app-rutina-card 
                     [rutinaEnviada]="rutina"
-                    [seleccionada]="rutinaSeleccionada()?.id === rutina.id"
                     (rutinaSeleccionadas)="seleccionar($event)"
                 />
             } @empty {
@@ -38,22 +37,5 @@
         </div>
     }
 
-    @if (rutinaSeleccionada()) {
-        <div class="caja">
-            <div class="flex justify-between items-start mb-4">
-                <div >
-                    <h2>{{rutinaSeleccionada()!.nombre}}</h2>
-                    <p>{{rutinaSeleccionada()!.ejercicios?.length}} ejercicios</p>
-                </div>
-                    <button 
-                        (click)="deseleccionar()">
-                        X
-                    </button>
-            </div>
-            <button class="w-full bg-red-900 font-bold uppercase tracking-widest py-2">
-                    Comenzar batalla
-            </button>
-        </div>
-    }
 
 </div>
