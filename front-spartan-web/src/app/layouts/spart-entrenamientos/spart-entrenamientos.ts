@@ -1,12 +1,12 @@
-import { Component, inject } from '@angular/core';
-import { Rutina } from '../../interfaces/rutina';
-import { NgClass } from '@angular/common';
+import { Component, inject, resource, signal } from '@angular/core';
 import { Rutinasespartanasservice } from '../../services/rutinasespartanas/rutinasespartanasservice';
 import { RutinaCard } from './rutina-card/rutina-card';
+import { Rutina } from '../../interfaces/rutina';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-spart-entrenamientos',
-  imports: [NgClass, RutinaCard],
+  imports: [RutinaCard],
   templateUrl: './spart-entrenamientos.html',
   styleUrl: './spart-entrenamientos.css',
 })
@@ -14,44 +14,23 @@ export class SpartEntrenamientos {
 
   private rutinasEspartanasService = inject(Rutinasespartanasservice);
 
-  rutinasPrehechas: Rutina[] = this.rutinasEspartanasService.obtenerTodasRutinas();
+  // con la funcion resource gestiona el ajax de petciones a la api de forma automatica
+  // mejoras de angular modernos con el uso de la reactividad
+  rutinasSpartana = resource({
+    loader: () => firstValueFrom(this.rutinasEspartanasService.obtenerTodasRutinasEspartanas())
+  });
 
-  busqueda: string = '';
+  // Probando signals, para que angular actualice lo unico que le incumbe
+  rutinaSeleccionada = signal<Rutina | null>(null);
 
-  get rutinasFiltradas(): Rutina[] {
-    if (this.busqueda === '') {
-      return this.rutinasPrehechas;
-    }
-
-    return this.rutinasPrehechas.filter(rutina => 
-      rutina.nombre.toLowerCase().includes(this.busqueda.toLowerCase()) || 
-      rutina.descripcion.toLowerCase().includes(this.busqueda.toLowerCase())
-    )
-
-    
-  }
-
-  rutinaSeleccionada: Rutina | null = null;
-
-  seleccionarRutina(rutina: Rutina): void {
-    this.rutinaSeleccionada = rutina;
+  seleccionar(rutina: Rutina): void {
+    // Set es una funcion para cambiar de valores en un signal ademas de que avisa a Angular de este suceso
+    this.rutinaSeleccionada.set(rutina);
   }
 
   deseleccionar(): void {
-    this.rutinaSeleccionada = null;
+    this.rutinaSeleccionada.set(null);
   }
 
-  contador: number = 0;
-
-  incrementar(): void {
-    this.contador += 1;
-  }
-
-  decrementar(): void {
-    this.contador -= 1;
-  }
-
-  reiniciar(): void {
-    this.contador = 0
-  }
 }
+

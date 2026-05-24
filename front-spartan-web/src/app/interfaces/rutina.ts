@@ -1,7 +1,10 @@
+import { RutinaEjercicio } from "./rutina-ejercicio";
+
 export interface Rutina {
-    id: number;
-    nombre: string;
+    id:          number;
+    usuario_id:  number;
+    nombre:      string;
     descripcion: string;
-    ejerciciosIds: number[];
+    ejercicios?: RutinaEjercicio[];
 }
 // solo las IDs — el backend tiene el resto

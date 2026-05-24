@@ -18,5 +18,7 @@ class RutinaController extends Controller
     public function getRutinasEspartanas() {
         $rutinas = Rutina::with('ejercicios')
                             ->where('usuario_id', 1)->get();
+
+        return $rutinas;
     }
 }

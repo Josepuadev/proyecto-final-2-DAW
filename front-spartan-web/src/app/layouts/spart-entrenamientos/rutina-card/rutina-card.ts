@@ -11,6 +11,7 @@ export class RutinaCard {
 
 
   @Input() rutinaEnviada!: Rutina;
+  @Input() seleccionada: boolean = false;
   @Output() rutinaSeleccionadas = new EventEmitter<Rutina>();
 
   onClick(): void {

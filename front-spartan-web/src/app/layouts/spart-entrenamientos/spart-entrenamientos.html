@@ -1,107 +1,59 @@
+<div class="min-h-screen p-6 text-zinc-100">
 
-<div class="p-6 border-4 flex flex-col gap-4">
+    <div class="border-l-4 border-red-800 pl-4 mb-8">
+        <h1 class="text-3xl font-bold mb-6 uppercase tracking-widest text-center">Rutinas Espartanas</h1>
 
-    <h1 class="text-2xl font-bold text-center p-4">RUTINAS ESPARTANAS</h1>
-
-    <div class="px-4 mb-4">
-        <input 
-            
-            (input)="busqueda = $any($event.target).value"
-            placeholder="Buscar rutina..."
-            class="border border-zinc-700 rounded-xl w-full
-                   px-2 py-1 text-zinc-100 placeholder-zinc-500
-                   focus:outline-none focus:border-zinc-300">
+        <p class="text-zinc-500 text-sm tracking-widest">
+            Elige tu batalla guerrero
+        </p>
     </div>
 
-    <div class="grid grid-cols-1 gap-4 p-6 border-2 cursor-pointer">
-        
-    @for (rutina of rutinasFiltradas; track rutina.id) {
-        
-        <!--
-            <div
-                (click)="seleccionarRutina(rutina)"
-                class="bg-zinc-950 hover:bg-red-950 transition-all duration-400 rounded-2xl p-4 "
-                [class.ring-2] = "rutinaSeleccionada?.id === rutina.id"
-                [class.ring-amber-500] = "rutinaSeleccionada?.id === rutina.id">
-                <h2>{{rutina.nombre}}</h2>
-                <p>{{rutina.descripcion}}</p>
-                <p>{{rutina.ejerciciosIds.length}} Ejercicios</p>
+    <!-- Estado: cargando -->
+    @if (rutinasSpartana.isLoading()) {
+        <p class="text-zinc-400">
+            Preparando el campo de batalla...
+        </p>
+    }
+
+    @if (rutinasSpartana.error()) {
+        <p class="text-red-400">
+            Error al cargar las rutinas
+        </p>
+    }
+
+    <!-- Estado: datos cargados -->
+    @if (rutinasSpartana.value()) {
+        <div class="grid grid-cols-1 gap-4">
+            @for (rutina of rutinasSpartana.value(); track rutina.id) {
+                <app-rutina-card 
+                    [rutinaEnviada]="rutina"
+                    [seleccionada]="rutinaSeleccionada()?.id === rutina.id"
+                    (rutinaSeleccionadas)="seleccionar($event)"
+                />
+            } @empty {
+                <p class="text-zinc-500">
+                    No hay rutinas espartanas
+                </p>
+            }
+        </div>
+    }
+
+    @if (rutinaSeleccionada()) {
+        <div class="caja">
+            <div class="flex justify-between items-start mb-4">
+                <div >
+                    <h2>{{rutinaSeleccionada()!.nombre}}</h2>
+                    <p>{{rutinaSeleccionada()!.ejercicios?.length}} ejercicios</p>
+                </div>
+                    <button 
+                        (click)="deseleccionar()">
+                        X
+                    </button>
             </div>
-            -->
-            <app-rutina-card 
-                [rutinaEnviada] = "rutina"
-                (rutinaSeleccionadas)="seleccionarRutina($event)">
-                
-            </app-rutina-card>
-        
-    } @empty {
-        <div class="col-span-2 text-center text-zinc-500 italic py-8">
-            No hay rutinas que coincidan con "{{ busqueda }}"
+            <button class="w-full bg-red-900 font-bold uppercase tracking-widest py-2">
+                    Comenzar batalla
+            </button>
         </div>
     }
-    </div>
-
-    <div
-        class="bg-amber-900 rounded-2xl p-4 m-4 transition-all duration-1000"
-        [ngClass]="{
-            'opacity-100 translate-y-0  visible': rutinaSeleccionada,
-            'opacity-0  translate-y-2 invisible': !rutinaSeleccionada
-        }">
-    @if (rutinaSeleccionada) {
-        
-            <h2>
-                Has seleccionado {{rutinaSeleccionada.nombre}}
-            </h2>
-            <p>
-                {{rutinaSeleccionada.descripcion}}
-            </p>
-            <p>
-                Esta rutina tiene {{rutinaSeleccionada.ejerciciosIds.length}} ejercicios
-            </p>
-            <button
-                (click)="deseleccionar()"
-                class="m-2 px-2 py-2 bg-red-900 rounded-2xl cursor-pointer">
-                Cerrar
-            </button>
-        
-    } @else {  
-        
-            <p>Selecciona una rutina para ver detalles</p>
-        
-    }
-    </div>
-
-    <h1 class="text-2xl font-bold text-center p-4 uppercase">
-            Laboratorio Espartano
-    </h1>
-    <div class="p-6 border-2">
-
-        
-        <div>
-            <button 
-                
-                (click)="incrementar()" 
-                class="m-2 px-2 py-2 bg-red-900 rounded-2xl cursor-cell">
-                    + Sumar
-            </button>
-
-            <button 
-                [disabled]="contador === 0"
-                (click)="decrementar()" 
-                class="m-2 px-2 py-2 bg-red-900 rounded-2xl disabled:opacity-50 cursor-pointer transition-all duration-300 ">
-                    - Restar
-            </button>
-
-            <button 
-                [disabled]="contador === 0"
-                (click)="reiniciar()" 
-                class="m-2 px-2 py-2 bg-red-900 rounded-2xl disabled:opacity-50 transition-all duration-300">
-                    Reiniciar
-            </button>
-
-            <p>Contador {{contador}}</p>
-        </div>
-
-    </div>
 
 </div>

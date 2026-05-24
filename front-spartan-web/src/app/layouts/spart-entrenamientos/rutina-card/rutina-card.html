@@ -1,7 +1,11 @@
 <div
     (click)="onClick()"
-    class="bg-zinc-950 hover:bg-red-950 transition-all duration-400 rounded-2xl p-4 ">
-    <h2>{{rutinaEnviada.nombre}}</h2>
-    <p>{{rutinaEnviada.descripcion}}</p>
-    <p>{{rutinaEnviada.ejerciciosIds.length}} Ejercicios</p>
+    class="card bg-zinc-950 rounded-2xl p-4 "
+    [class.seleccionada]="seleccionada">
+    <div>
+        <h2 class="uppercase tracking-widest border-b border-amber-400 mb-4">{{rutinaEnviada.nombre}}</h2>
+        <p class=" tracking-wide">{{rutinaEnviada.descripcion}}</p>
+        <span class="text-red-500">{{ rutinaEnviada.ejercicios?.length ?? 0}} ejercicios</span>
+    </div>
+
 </div>
