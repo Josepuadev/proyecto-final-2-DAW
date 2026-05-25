@@ -18,6 +18,7 @@ export const LAYOUTS_ROUTES: Routes = [
             {path: 'spart-entrenamientos', component: SpartEntrenamientos},
             {path: 'perfil', component: Perfil},
             {path: 'ajustes', component: Ajustes},
+            {path: 'rutina/:id', component: Rutinas}
             
         ]
     },

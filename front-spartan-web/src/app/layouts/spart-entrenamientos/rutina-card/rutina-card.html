@@ -42,7 +42,7 @@
             <p class="modal-ejercicios text-red-600"> {{ rutinaEnviada.ejercicios?.length ?? 0}} ejercicios</p>
 
             <button class="modal-btn" (click)="comenzar()">
-                Comenzar Batalla
+                {{ cargando() ? 'Preparando Batalla...' : 'Comenzar Batalla'}}
             </button>
         </div>
     </div>

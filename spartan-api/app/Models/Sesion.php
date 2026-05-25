@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sesion extends Model
 {
+    // La forma de pluralizar de Laravel no me sirve para esta tabla,  NO ES SESIONES, 
+    // es: sesiones...
+    protected $table = 'sesiones';
+
     protected $fillable = [
         'usuario_id',
         'rutina_id',
