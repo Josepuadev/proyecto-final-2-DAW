@@ -25,6 +25,6 @@ export class Sesionesservice {
   }
 
   guardarSesion(idSesion: number, ejercicios: any[]): Observable<any> {
-    return this.peticionesHttp.post(`${this.apiUrl}sesiones/${idSesion}/guardar`, {ejercicios});
+    return this.peticionesHttp.post(`${this.apiUrl}/sesiones/${idSesion}/guardar`, {ejercicios});
   }
 }
