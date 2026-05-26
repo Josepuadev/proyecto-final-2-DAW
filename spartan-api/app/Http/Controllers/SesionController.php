@@ -85,8 +85,14 @@ class SesionController extends Controller
             return response()->json(['message' => 'No autorizado'], 403);
         }
 
+        // Carga la sesión con:
+        // - sus ejercicios realizados (sesionEjercicios)
+        // - la rutina asociada con sus ejercicios planificados
         return response()->json(
-            $sesion->load('sesionEjercicios.ejercicio')
+            $sesion->load([
+                'sesionEjercicios.ejercicio',
+                'rutina.ejercicios'
+            ])
         );
     }
     }

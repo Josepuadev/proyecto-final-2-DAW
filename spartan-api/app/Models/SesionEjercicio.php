@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class SesionEjercicio extends Model
 {
+    protected $table = 'sesiones_ejercicios';
+
     protected  $fillable = [
         'sesion_id',
         'ejercicio_id',

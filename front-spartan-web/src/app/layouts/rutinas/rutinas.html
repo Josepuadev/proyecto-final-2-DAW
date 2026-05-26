@@ -1,4 +1,4 @@
-<div class="flex flex-col h-dvh bg-red-100 ">
+<div class="flex flex-col h-dvh text-zinc-100">
     <div class="bg-rose-600 p-2 flex flex-col justify-between fixed w-dvw">
             <div class="flex justify-between w-full p-2">
                 <button routerLink="/tus-entrenamientos" class="bg-indigo-500 rounded-2xl px-3 py-2 text-amber-200">INICIO</button>
@@ -10,10 +10,9 @@
                 <div>Orbes</div>
             </div>
     </div>
-    
-    
 
-    <div class="bg-red-100 p-2 flex-1 flex flex-col items-center justify-between gap-6 mt-30">
+    <!--
+    <div class="p-2 flex-1 flex flex-col items-center justify-between gap-6 mt-30">
 
         <div class="border-2 border-red-500 flex flex-col py-6 px-12 gap-6">
             <p>CALENTAMIENTO</p>
@@ -39,10 +38,138 @@
             Empezar
             Illum iusto enim similique porro cdolor exercitationem totam? Dolores, voluptates nam facilis quisquam mollitia ipsa nesciunt repellat, illum amet quod molestias, voluptatibus officia? Omnis distinctio officiis quisquam?
         </div>
-
-
-
             
+    </div>
+    -->
+    
+    <div class="h-screen bg-zinc-900 p-4 text-zinc-100 mt-30">
+
+        @if (sesionCargada.isLoading()) {
+            <p class="text-zinc-400">Cargando sesión...</p>
+        }
+        
+        @if (sesionCargada.error()) {
+            <p class="text-red-400">Error al cargar la sesión</p>
+        }
+
+        <!--El ; as sesion guarda el valor de la signal en una variable local sesion-->
+        @if (sesionCargada.value(); as sesion) {
+            <div class="mb-4 border-l-4 border-red-600 pl-3">
+                <h1 class="text-xl font-bold uppercase tracking-widest">
+                    {{ sesion.titulo }}
+                </h1>
+                <p>{{ sesion.rutina_id }}</p>
+            </div>
+
+        @if (sesion.rutina?.ejercicios?.length) {
+            <div class="flex flex-col gap-3">
+
+                @for (ejercicio of sesion.rutina!.ejercicios!; track ejercicio.id) {
+                <div 
+                    class="bg-zinc-800 rounded-2xl overflow-hidden border-2 border-zinc-400">
+                    
+                    <!-- CABECERA ACORDEÓN -->
+                    <button
+                        class="w-full flex justify-between items-center p-3 
+                                transition-all duration-200"
+                        [class.border-b]="ejercicioABierto() === ejercicio.id"
+                        [class.border-red-900]="ejercicioABierto() === ejercicio.id"
+                        (click)="toggleAcordeon(ejercicio.id, ejercicio.pivot.series)">
+
+                        <div class="flex flex-col">
+                            <span class="font-medium uppercase tracking-wide text-xs">
+                                {{ ejercicio.nombre }}
+                            </span>
+                        </div>
+                    
+
+                        <span class="text-red-600 transition-all duration-300"
+                                [class.rotate-90]="ejercicioABierto() === ejercicio.id">
+                            ▼
+                        </span>
+                    </button>
+
+                     <!-- CONTENIDO ACORDEÓN -->
+                    @if (ejercicioABierto() === ejercicio.id) {
+
+                        <div class="flex flex-col p-2 gap-3 text-zinc-400 animate-fadeIn">
+
+                             <!-- CABECERA DE LAS COLUMNAS -->
+
+                            <div class="grid grid-cols-4 gap-2 text-xs text-zinc-500 uppercase tracking-wider px-1">
+                                <span>Serie</span>
+                                <span class="text-center">Reps</span>
+                                <span class="text-center">Kg</span>
+                                <span class="text-center">✓</span>
+                            </div>
+
+                            @for (serie of seriesLocales().get(ejercicio.id) ?? []; track serie.numero_serie) {
+
+                                <div class="grid grid-cols-4 gap-2 items-center px-2">
+                                    <span>
+                                        {{ serie.numero_serie}}
+                                    </span>
+
+                                    <!-- Input repeticiones -->
+                                    <input
+                                        type="number"
+                                        [value]="serie.repeticiones ?? ''"
+                                        [disabled]="serie.completada"
+                                        (change)="actualizarSerie(ejercicio.id, serie.numero_serie, 'repeticiones', +$any($event.target).value)"
+                                        placeholder="{{ ejercicio.pivot.repeticiones_objetivo ?? '—' }}"
+                                        class="">
+
+                                    <!-- Input peso -->
+                                    <input
+                                        type="number"
+                                        [value]="serie.peso ?? ''"
+                                        [disabled]="serie.completada"
+                                        (change)="actualizarSerie(ejercicio.id, serie.numero_serie, 'peso', +$any($event.target).value)"
+                                        placeholder="{{ ejercicio.pivot.peso_objetivo ?? '—' }}"
+                                        class="">
+
+                                    <!-- Botón completar serie -->
+                                    <button
+                                        [disabled]="serie.completada"
+                                        (click)="completarSerie(ejercicio.id, serie.numero_serie)"
+                                        class="w-full py-2 rounded-lg text-sm font-bold transition-all duration-200
+                                                border border-zinc-700 disabled:opacity-40"
+                                        [class.bg-red-700]="!serie.completada"
+                                        [class.bg-zinc-700]="serie.completada"
+                                        [class.text-white]="!serie.completada"
+                                        [class.text-zinc-400]="serie.completada">
+                                            {{ serie.completada ? '✓' : '→' }}
+                                    </button>
+                                </div>
+                                
+                            }
+
+                            <!-- BOTÓN AÑADIR SERIE -->
+                            <button
+                            (click)="agregarSerie(ejercicio.id)"
+                            class="mt-2 w-full py-2 border border-dashed border-zinc-700
+                                    text-zinc-500 text-xs uppercase tracking-wider rounded-lg
+                                    hover:border-red-800 hover:text-red-500 transition-all duration-200">
+                            + Añadir serie
+                            </button>
+
+                        </div>
+
+                    }
+
+                </div>
+
+                }
+
+            </div>
+            }
+
+
+        } @else {
+            <p>
+                Esta sesion no tiene ejercicios planificados
+            </p>
+        }
 
     </div>
 

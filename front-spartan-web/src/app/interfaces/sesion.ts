@@ -1,3 +1,4 @@
+import { Rutina } from "./rutina";
 import { SesionEjercicio } from "./sesion-ejercicio";
 
 export interface Sesion {
@@ -12,4 +13,5 @@ export interface Sesion {
     orbes_calistenia_ganados:   number;
     orbes_resistencia_ganados:  number;
     sesionEjercicios?:          SesionEjercicio[];
+    rutina?:                    Rutina;
 }
