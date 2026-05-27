@@ -9,9 +9,7 @@ import { RouterLink } from "@angular/router";
 })
 export class TusEntrenamientos {
 
-  rathalos: string = 'assets/images/rathalos.jpg';
-  rathian: string = 'assets/images/rathian.png';
-  cinder: string = 'assets/images/darksouls.png';
+
 
  
 }

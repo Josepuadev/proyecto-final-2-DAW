@@ -23,8 +23,8 @@ return new class extends Migration
             $table->integer('series')->nullable();
             $table->integer('segundos_objetivo')->nullable();
             $table->integer('metros_objetivo')->nullable();
-            $table->integer('repeticiones_objetivo');
-            $table->decimal('peso', 5 , 2)->nullable();
+            $table->integer('repeticiones_objetivo')->nullable();
+            $table->decimal('peso_objetivo', 5 , 2)->nullable();
             $table->integer('orden')->default(1);
 
 
