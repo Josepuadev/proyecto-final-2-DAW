@@ -20,6 +20,7 @@ export class Rutinas {
   private router = inject(Router);
 
   ejercicioAbierto = signal<number | null>(null);
+  mensajeErrorSerie = signal<string | null>(null);
 
   sesionCargada = resource({
     loader: () => firstValueFrom(this.sesionService.getSesion(this.idSesion))
@@ -107,9 +108,22 @@ export class Rutinas {
       const series = this.seriesLocales().get(ejercicioId);
       if (!series) return;
 
-      const completadaActual = series[numeroSerie - 1].completada;
+      const serie = series[numeroSerie - 1];
+
+      // Bloque para revisar si la serie ha sido rellenada o no
+      if (!serie.completada) {
+        const tieneValor = serie.repeticiones !== null || serie.segundos !== null || serie.metros !== null;
+
+        if (!tieneValor) {
+          this.mensajeErrorSerie.set('Rellena los campos de la serie');
+
+          // Borramos mensajes de error a los 2s
+          setTimeout( () => this.mensajeErrorSerie.set(null), 2000);
+          return;
+        }
+      }
     
-      this.actualizarSerie(ejercicioId,numeroSerie, 'completada', !completadaActual);
+      this.actualizarSerie(ejercicioId,numeroSerie, 'completada', !serie.completada);
     }
 
     agregarSerie(ejercicioId: number): void {
@@ -160,7 +174,16 @@ export class Rutinas {
       });
     });
 
-    this.sesionService.guardarSesion(this.idSesion, todasSeries).subscribe({
+    // Pequeña comprobacion de que al menos una serie haya sido filtrada
+    const todasSeriesCompletada = todasSeries.filter(serie => serie.completada);
+
+    if (todasSeriesCompletada.length === 0) {
+      this.mensajeErrorSerie.set('Completa al menos una serie antes de terminar');
+      setTimeout(() => this.mensajeErrorSerie.set(null), 2000);
+      return;
+    }
+
+    this.sesionService.guardarSesion(this.idSesion, todasSeriesCompletada).subscribe({
       
       next: () => {
         this.router.navigate(['/entrenamientos']);
