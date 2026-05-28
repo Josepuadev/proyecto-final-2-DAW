@@ -1,7 +1,73 @@
-<p>ajustes works!</p>
-<div>
-    <button class="bg-red-800 rounded-2xl px-2 py-2"
-            (click)="clicao()">
-        Cerrar Sesión
+<div class="min-h-screen bg-zinc-950 text-zinc-100 p-6">
+
+  <!-- CABECERA -->
+  <div class="mb-8 border-l-4 border-red-600 pl-4">
+    <h1 class="text-2xl font-bold uppercase tracking-widest">Ajustes</h1>
+  </div>
+
+  <!-- OPCIONES -->
+  <div class="flex flex-col gap-3">
+
+    <button
+      routerLink="/ajustes/politica"
+      class="w-full flex justify-between items-center bg-zinc-900 border
+             border-zinc-800 rounded-xl p-4 text-left transition-all duration-200
+             hover:border-zinc-600">
+      <span class="text-sm uppercase tracking-wider">Política de privacidad</span>
+      <span class="text-zinc-500">→</span>
     </button>
+
+    <button
+      routerLink="/ajustes/terminos"
+      class="w-full flex justify-between items-center bg-zinc-900 border
+             border-zinc-800 rounded-xl p-4 text-left transition-all duration-200
+             hover:border-zinc-600">
+      <span class="text-sm uppercase tracking-wider">Términos y condiciones</span>
+      <span class="text-zinc-500">→</span>
+    </button>
+
+    <button
+      (click)="modalCerrarSesion.set(true)"
+      class="w-full flex justify-between items-center bg-zinc-900 border
+             border-red-900 rounded-xl p-4 text-left transition-all duration-200
+             hover:border-red-700 mt-4">
+      <span class="text-sm uppercase tracking-wider text-red-400">Cerrar sesión</span>
+      <span class="text-red-600">→</span>
+    </button>
+
+  </div>
+
 </div>
+
+<!-- MODAL CONFIRMAR CERRAR SESIÓN -->
+@if (modalCerrarSesion()) {
+  <div class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-6"
+       (click)="modalCerrarSesion.set(false)">
+    <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-6 w-full max-w-sm"
+         (click)="$event.stopPropagation()">
+
+      <h3 class="text-zinc-100 font-bold uppercase tracking-wider mb-2">
+        ¿Cerrar sesión?
+      </h3>
+      <p class="text-zinc-400 text-sm mb-6">
+        Tendrás que volver a identificarte para acceder.
+      </p>
+
+      <div class="flex gap-3">
+        <button
+          (click)="modalCerrarSesion.set(false)"
+          class="flex-1 py-3 rounded-xl border border-zinc-700 text-zinc-400
+                 text-sm uppercase tracking-wider">
+          Cancelar
+        </button>
+        <button
+          (click)="cerrarSesion()"
+          class="flex-1 py-3 rounded-xl bg-red-700 text-white font-bold
+                 text-sm uppercase tracking-wider hover:bg-red-600">
+          Cerrar sesión
+        </button>
+      </div>
+
+    </div>
+  </div>
+}

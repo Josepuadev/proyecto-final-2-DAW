@@ -8,6 +8,8 @@ import { SpartEntrenamientos } from "./spart-entrenamientos/spart-entrenamientos
 import { Ajustes } from "./ajustes/ajustes";
 import { NuevaRutina } from "./tus-entrenamientos/nueva-rutina/nueva-rutina";
 import { BuscadorEjercicios } from "../shared/buscador-ejercicios/buscador-ejercicios";
+import { PoliticaPrivacidad } from "./ajustes/politica-privacidad/politica-privacidad";
+import { TerminosCondiciones } from "./ajustes/terminos-condiciones/terminos-condiciones";
 
 export const LAYOUTS_ROUTES: Routes = [
     
@@ -21,6 +23,8 @@ export const LAYOUTS_ROUTES: Routes = [
             {path: 'spart-entrenamientos', component: SpartEntrenamientos},
             {path: 'perfil', component: Perfil},
             {path: 'ajustes', component: Ajustes},
+            { path: 'ajustes/politica', component: PoliticaPrivacidad },
+            { path: 'ajustes/terminos', component: TerminosCondiciones },
             
             
         ]

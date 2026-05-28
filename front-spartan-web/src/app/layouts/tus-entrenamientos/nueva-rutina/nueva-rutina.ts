@@ -9,7 +9,7 @@ import { Sesionesservice } from '../../../services/sesiones/sesionesservice';
 
 @Component({
   selector: 'app-nueva-rutina',
-  imports: [ReactiveFormsModule, RouterLink, BuscadorEjercicios],
+  imports: [ReactiveFormsModule, BuscadorEjercicios],
   templateUrl: './nueva-rutina.html',
   styleUrl: './nueva-rutina.css',
 })

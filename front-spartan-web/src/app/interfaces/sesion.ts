@@ -12,6 +12,6 @@ export interface Sesion {
     orbes_fuerza_ganados:       number;
     orbes_calistenia_ganados:   number;
     orbes_resistencia_ganados:  number;
-    sesionEjercicios?:          SesionEjercicio[];
+    sesion_ejercicios?:          SesionEjercicio[];
     rutina?:                    Rutina;
 }

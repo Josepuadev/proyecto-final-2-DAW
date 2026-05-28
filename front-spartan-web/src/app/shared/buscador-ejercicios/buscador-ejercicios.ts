@@ -17,6 +17,7 @@ export class BuscadorEjercicios {
   // El padre escucha estos dos eventos
   @Output() ejercicioSeleccionado = new EventEmitter<Ejercicio>();
   @Output() cerrar                = new EventEmitter<void>();
+  @Input() ejerciciosYaEnRutina: number[] = [];
 
   // Signals de filtros
   busqueda            = signal('');
@@ -77,8 +78,14 @@ export class BuscadorEjercicios {
     return musculo ? musculo.nombre : 'Músculo';
   });
 
+    // Método para comprobar si un ejercicio ya está
+  estaEnRutina(ejercicioId: number): boolean {
+    return this.ejerciciosYaEnRutina.includes(ejercicioId);
+  }
+
   // Selecciona un ejercicio y avisa al padre
   seleccionar(ejercicio: Ejercicio): void {
+    if (this.estaEnRutina(ejercicio.id)) return;
     this.ejercicioSeleccionado.emit(ejercicio);
   }
 
@@ -90,8 +97,10 @@ export class BuscadorEjercicios {
 
   // Selecciona músculo y cierra el modal de músculo
   seleccionarMusculo(musculoId: number | null): void {
-    this.filtroMusculo.set(musculoId);
-    this.modalMusculoVisible.set(false);
-  }
+      this.filtroMusculo.set(musculoId);
+      this.modalMusculoVisible.set(false);
+    }
+
+  
 
 }

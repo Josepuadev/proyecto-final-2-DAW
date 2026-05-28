@@ -108,6 +108,7 @@
   @if (buscadorVisible()) {
     <div class="fixed inset-0 z-50 bg-zinc-950">
       <app-buscador-ejercicios
+        [ejerciciosYaEnRutina]="(rutinaCreada()?.ejercicios ?? []).map(e => e.id)"
         (ejercicioSeleccionado)="onEjercicioSeleccionado($event)"
         (cerrar)="buscadorVisible.set(false)">
       </app-buscador-ejercicios>

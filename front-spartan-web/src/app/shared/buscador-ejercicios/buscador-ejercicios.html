@@ -78,23 +78,29 @@
         <button
           (click)="seleccionar(ejercicio)"
           class="w-full text-left bg-zinc-900 border border-zinc-800 rounded-xl p-4
-                 hover:border-red-800 active:bg-zinc-800 transition-all duration-200">
-  
-          <p class="text-zinc-100 text-sm font-medium uppercase tracking-wide">
-            {{ ejercicio.nombre }}
-          </p>
-  
-          <p class="text-zinc-500 text-xs mt-1 mb-2">
-            {{ ejercicio.descripcion }}
-          </p>
-  
-          <!-- Orbes -->
+                transition-all duration-200"
+          [class.opacity-40]="estaEnRutina(ejercicio.id)"
+          [class.cursor-not-allowed]="estaEnRutina(ejercicio.id)"
+          [class.hover:border-red-800]="!estaEnRutina(ejercicio.id)"
+          [class.active:bg-zinc-800]="!estaEnRutina(ejercicio.id)">
+
+          <div class="flex justify-between items-start">
+            <p class="text-zinc-100 text-sm font-medium uppercase tracking-wide">
+              {{ ejercicio.nombre }}
+            </p>
+            @if (estaEnRutina(ejercicio.id)) {
+              <span class="text-red-100 text-m">añadido</span>
+            }
+          </div>
+
+          <p class="text-zinc-500 text-xs mt-1 mb-2">{{ ejercicio.descripcion }}</p>
+
           <div class="flex gap-4 justify-between text-l">
             <span class="text-red-500">⚔ {{ ejercicio.orbes_fuerza }}</span>
             <span class="text-green-500">◆ {{ ejercicio.orbes_calistenia }}</span>
             <span class="text-blue-500">● {{ ejercicio.orbes_resistencia }}</span>
           </div>
-  
+
         </button>
       } @empty {
         <p class="text-zinc-600 text-sm italic text-center mt-8">

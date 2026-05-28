@@ -1,46 +1,95 @@
 <div class="container--wrapper p-2">
-    <div class="border w-[90dvw] flex justify-around">
-        <div class="border w-full text-center bg-red-800"
-             routerLink="/ajustes">
-            Ajustes
-        </div>
-        <div class="border w-full text-center">
-            <p>
-                {{this.nombreUsuario}}
-            </p>
-        </div>
+
+  <!-- CABECERA -->
+  <div class="border w-[90dvw] flex justify-around">
+    <div class="border w-full text-center bg-red-800"
+         routerLink="/ajustes">
+      Ajustes
+    </div>
+    <div class="border w-full text-center">
+      <p>{{ nombreUsuario }}</p>
+    </div>
+  </div>
+
+  <!-- ORBES -->
+  <div class="container--orbes border">
+    <div class="orbe orbe--rojo">LV 1</div>
+    <div class="orbe orbe--verde">LV 1</div>
+    <div class="orbe orbe--azul">LV 1</div>
+  </div>
+
+  <!-- STATS -->
+  <div class="container--stats border w-[90dvw] flex justify-around">
+    <div><p>Medidas</p></div>
+    <div><p>Ejercicios Personalizados</p></div>
+  </div>
+
+  <!-- HISTORIAL -->
+  <div class="container--historial border w-[90dvw] flex flex-col">
+
+    <!-- Cabecera -->
+    <div class="flex border">
+      <div class="text-center w-[50%] border font-bold text-sm uppercase tracking-wider p-2">
+        Nombre
+      </div>
+      <div class="text-center border w-[50%] font-bold text-sm uppercase tracking-wider p-2">
+        Fecha
+      </div>
     </div>
 
-    <div class="container--orbes border">
-        <div class="orbe orbe--rojo">LV 19</div>
-        <div class="orbe orbe--verde">LV 7</div>
-        <div class="orbe orbe--azul">LV 2</div>
-    </div>
-    <div class="container--stats border w-[90dvw] flex justify-around">
-        <div>
-            <p>medidas</p>
-        </div>
-        <div>
-            <p>Ejercicios Personalizados</p>
-        </div>
-    </div>
-    <div class="container--historial border w-[90dvw] flex flex-col">
+    <!-- Cargando -->
+    @if (sesiones.isLoading()) {
+      <p class="text-zinc-400 text-sm text-center p-4">Cargando historial...</p>
+    }
 
-            <div class="historial--wrapper">
-                <div class="flex border">
-                    <div class="text-center w-[50%] border">Nombre</div>
-                    <div class="text-center border w-[50%]">Fecha</div>
-                </div>
-                <div class="border p-3">
+    <!-- Lista de sesiones -->
+    @for (sesion of sesiones.value() ?? []; track sesion.id) {
 
-                        <div class="border">
-                            Contenido acordeon
-                        </div>
+      <div class="historial--wrapper border-b">
 
+        <!-- Fila clickeable -->
+        <button
+          class="flex w-full"
+          (click)="toggleSesion(sesion.id)">
+          <div class="text-center w-[50%] border-r p-3 text-sm">
+            {{ sesion.titulo }}
+          </div>
+          <div class="text-center w-[50%] p-3 text-sm text-zinc-400">
+            {{ sesion.fecha | date:'dd/MM/yyyy' }}
+          </div>
+        </button>
 
-                </div>
-            </div>
+        <!-- Acordeón con ejercicios realizados -->
+        @if (sesionAbierta() === sesion.id) {
+          <div class="border-t p-3 flex flex-col gap-2">
 
+            @for (sesionEjercicio of sesion.sesion_ejercicios ?? []; track sesionEjercicio.id) {
+              <div class="border border-zinc-700 rounded-lg p-2">
+                <p class="text-sm font-medium uppercase tracking-wide">
+                  {{ sesionEjercicio.ejercicio?.nombre }}
+                </p>
+                <p class="text-xs text-zinc-500 mt-1">
+                  Serie {{ sesionEjercicio.numero_serie }} —
+                  {{ sesionEjercicio.repeticiones ? sesionEjercicio.repeticiones + ' reps' : '' }}
+                  {{ sesionEjercicio.peso ? '· ' + sesionEjercicio.peso + 'kg' : '' }}
+                  {{ sesionEjercicio.segundos ? '· ' + sesionEjercicio.segundos + 's' : '' }}
+                </p>
+              </div>
+            } @empty {
+              <p class="text-zinc-500 text-xs italic">Sin ejercicios registrados</p>
+            }
 
-    </div>
+          </div>
+        }
+
+      </div>
+
+    } @empty {
+      <p class="text-zinc-500 text-sm italic text-center p-6">
+        Aún no tienes entrenamientos registrados
+      </p>
+    }
+
+  </div>
+
 </div>
