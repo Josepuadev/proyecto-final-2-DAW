@@ -1,0 +1,208 @@
+<div class="flex flex-col h-dvh bg-zinc-950 text-zinc-100">
+
+    <!-- CABECERA con botón volver -->
+    <div class="flex items-center gap-3 p-4 border-b border-zinc-800">
+      <button
+        (click)="cerrar.emit()"
+        class="text-zinc-400 hover:text-zinc-100 transition-colors text-lg">
+        ←
+      </button>
+      <h2 class="font-bold uppercase tracking-wider text-sm">
+        Buscar ejercicio
+      </h2>
+    </div>
+  
+    <!-- FILTROS -->
+    <div class="p-4 border-b border-zinc-800 flex flex-col gap-3">
+  
+      <!-- Input texto -->
+      <input
+        type="text"
+        placeholder="Buscar por nombre..."
+        [value]="busqueda()"
+        (input)="busqueda.set($any($event.target).value)"
+        class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2
+               text-zinc-100 text-sm focus:border-red-600 focus:outline-none">
+  
+      <!-- Botones de filtro -->
+      <div class="flex gap-2">
+  
+        <!-- Botón tipo -->
+        <button
+          (click)="modalTipoVisible.set(true)"
+          class="flex-1 py-2 rounded-xl text-xs uppercase tracking-wider
+                 border transition-all duration-200"
+          [class.border-red-600]="filtroTipo() !== null"
+          [class.text-red-400]="filtroTipo() !== null"
+          [class.border-zinc-700]="filtroTipo() === null"
+          [class.text-zinc-400]="filtroTipo() === null">
+          {{ nombreTipoSeleccionado() }}
+          @if (filtroTipo() !== null) { <span class="ml-1">✓</span> }
+        </button>
+  
+        <!-- Botón músculo -->
+        <button
+          (click)="modalMusculoVisible.set(true)"
+          class="flex-1 py-2 rounded-xl text-xs uppercase tracking-wider
+                 border transition-all duration-200"
+          [class.border-red-600]="filtroMusculo() !== null"
+          [class.text-red-400]="filtroMusculo() !== null"
+          [class.border-zinc-700]="filtroMusculo() === null"
+          [class.text-zinc-400]="filtroMusculo() === null">
+          {{ nombreMusculoSeleccionado() }}
+          @if (filtroMusculo() !== null) { <span class="ml-1">✓</span> }
+        </button>
+  
+        <!-- Limpiar filtros -->
+        @if (filtroTipo() !== null || filtroMusculo() !== null) {
+          <button
+            (click)="filtroTipo.set(null); filtroMusculo.set(null)"
+            class="px-3 py-2 rounded-xl text-xs text-zinc-500 border border-zinc-700
+                   hover:text-red-400 hover:border-red-800 transition-all duration-200">
+            ✕
+          </button>
+        }
+  
+      </div>
+  
+    </div>
+  
+    <!-- LISTA DE EJERCICIOS -->
+    <div class="flex-1 overflow-y-auto p-4 flex flex-col gap-2">
+  
+      @if (listadoEjercicios.isLoading()) {
+        <p class="text-zinc-500 text-sm text-center mt-8">Cargando ejercicios...</p>
+      }
+  
+      @for (ejercicio of ejerciciosFiltrados(); track ejercicio.id) {
+        <button
+          (click)="seleccionar(ejercicio)"
+          class="w-full text-left bg-zinc-900 border border-zinc-800 rounded-xl p-4
+                 hover:border-red-800 active:bg-zinc-800 transition-all duration-200">
+  
+          <p class="text-zinc-100 text-sm font-medium uppercase tracking-wide">
+            {{ ejercicio.nombre }}
+          </p>
+  
+          <p class="text-zinc-500 text-xs mt-1 mb-2">
+            {{ ejercicio.descripcion }}
+          </p>
+  
+          <!-- Orbes -->
+          <div class="flex gap-4 justify-between text-l">
+            <span class="text-red-500">⚔ {{ ejercicio.orbes_fuerza }}</span>
+            <span class="text-green-500">◆ {{ ejercicio.orbes_calistenia }}</span>
+            <span class="text-blue-500">● {{ ejercicio.orbes_resistencia }}</span>
+          </div>
+  
+        </button>
+      } @empty {
+        <p class="text-zinc-600 text-sm italic text-center mt-8">
+          No se encontraron ejercicios
+        </p>
+      }
+  
+    </div>
+  
+  </div>
+  
+  <!-- MODAL TIPO -->
+  @if (modalTipoVisible()) {
+    <div class="fixed inset-0 bg-black/80 flex items-end justify-center z-50 p-4"
+         (click)="modalTipoVisible.set(false)">
+      <div class="bg-zinc-900 border border-zinc-700 rounded-2xl w-full max-w-md p-4"
+           (click)="$event.stopPropagation()">
+  
+        <h3 class="text-zinc-100 font-bold uppercase tracking-wider text-sm mb-4">
+          Filtrar por tipo
+        </h3>
+  
+        <div class="flex flex-col gap-2">
+          <button (click)="seleccionarTipo(null)"
+                  class="w-full py-3 rounded-xl text-sm uppercase tracking-wider
+                         border transition-all duration-200"
+                  [class.bg-red-700]="filtroTipo() === null"
+                  [class.text-white]="filtroTipo() === null"
+                  [class.border-red-600]="filtroTipo() === null"
+                  [class.border-zinc-700]="filtroTipo() !== null"
+                  [class.text-zinc-400]="filtroTipo() !== null">
+            Todos
+          </button>
+          <button (click)="seleccionarTipo(1)"
+                  class="w-full py-3 rounded-xl text-sm uppercase tracking-wider
+                         border transition-all duration-200"
+                  [class.bg-red-700]="filtroTipo() === 1"
+                  [class.text-white]="filtroTipo() === 1"
+                  [class.border-red-600]="filtroTipo() === 1"
+                  [class.border-zinc-700]="filtroTipo() !== 1"
+                  [class.text-zinc-400]="filtroTipo() !== 1">
+            Fuerza
+          </button>
+          <button (click)="seleccionarTipo(2)"
+                  class="w-full py-3 rounded-xl text-sm uppercase tracking-wider
+                         border transition-all duration-200"
+                  [class.bg-red-700]="filtroTipo() === 2"
+                  [class.text-white]="filtroTipo() === 2"
+                  [class.border-red-600]="filtroTipo() === 2"
+                  [class.border-zinc-700]="filtroTipo() !== 2"
+                  [class.text-zinc-400]="filtroTipo() !== 2">
+            Calistenia
+          </button>
+          <button (click)="seleccionarTipo(3)"
+                  class="w-full py-3 rounded-xl text-sm uppercase tracking-wider
+                         border transition-all duration-200"
+                  [class.bg-red-700]="filtroTipo() === 3"
+                  [class.text-white]="filtroTipo() === 3"
+                  [class.border-red-600]="filtroTipo() === 3"
+                  [class.border-zinc-700]="filtroTipo() !== 3"
+                  [class.text-zinc-400]="filtroTipo() !== 3">
+            Resistencia
+          </button>
+        </div>
+  
+      </div>
+    </div>
+  }
+  
+  <!-- MODAL MÚSCULO -->
+  @if (modalMusculoVisible()) {
+    <div class="fixed inset-0 bg-black/80 flex items-end justify-center z-50 p-4"
+         (click)="modalMusculoVisible.set(false)">
+      <div class="bg-zinc-900 border border-zinc-700 rounded-2xl w-full max-w-md p-4
+                  max-h-96 overflow-y-auto"
+           (click)="$event.stopPropagation()">
+  
+        <h3 class="text-zinc-100 font-bold uppercase tracking-wider text-sm mb-4">
+          Filtrar por músculo
+        </h3>
+  
+        <div class="flex flex-col gap-2">
+          <button (click)="seleccionarMusculo(null)"
+                  class="w-full py-3 rounded-xl text-sm uppercase tracking-wider
+                         border transition-all duration-200"
+                  [class.bg-red-700]="filtroMusculo() === null"
+                  [class.text-white]="filtroMusculo() === null"
+                  [class.border-red-600]="filtroMusculo() === null"
+                  [class.border-zinc-700]="filtroMusculo() !== null"
+                  [class.text-zinc-400]="filtroMusculo() !== null">
+            Todos
+          </button>
+  
+          @for (musculo of musculosDisponibles(); track musculo.id) {
+            <button
+              (click)="seleccionarMusculo(musculo.id)"
+              class="w-full py-3 rounded-xl text-sm uppercase tracking-wider
+                     border transition-all duration-200"
+              [class.bg-red-700]="filtroMusculo() === musculo.id"
+              [class.text-white]="filtroMusculo() === musculo.id"
+              [class.border-red-600]="filtroMusculo() === musculo.id"
+              [class.border-zinc-700]="filtroMusculo() !== musculo.id"
+              [class.text-zinc-400]="filtroMusculo() !== musculo.id">
+              {{ musculo.nombre }}
+            </button>
+          }
+        </div>
+  
+      </div>
+    </div>
+  }

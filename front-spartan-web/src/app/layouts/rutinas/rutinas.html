@@ -60,17 +60,26 @@
                         [class.border-red-900]="ejercicioAbierto() === ejercicio.id"
                         (click)="toggleAcordeon(ejercicio.id, ejercicio.pivot.series)">
 
-                        <div class="flex flex-col">
+                        <div class="flex items-center gap-2">
+                            <span class="text-amber-100 transition-all duration-300"
+                                [class.rotate-270]="ejercicioAbierto() === ejercicio.id"
+                                [class.text-amber-500]="ejercicioAbierto() === ejercicio.id">
+                            ▼
+                            </span>
                             <span class="font-medium uppercase tracking-wide text-xs">
                                 {{ ejercicio.nombre }}
                             </span>
-                        </div>
-                    
 
-                        <span class="text-red-600 transition-all duration-300"
-                                [class.rotate-90]="ejercicioAbierto() === ejercicio.id">
-                            ▼
-                        </span>
+                        </div>
+
+                            @if (!esRutinaEspartana()) {
+                                <span
+                                    (click)="$event.stopPropagation(); confirmarBorrarEjercicio(ejercicio)"
+                                    class="text-red-500 text-l px-1">
+                                    ✕
+                                </span>
+                            }
+
                     </button>
 
                      <!-- CONTENIDO ACORDEÓN -->
@@ -160,8 +169,22 @@
             }
 
             @if (!esRutinaEspartana()) {
-                <button>+ Agregar ejercicio</button>
+                <button
+                    class="mt-4 w-[90dvw] max-w-sm border border-dashed bg-amber-500 border-zinc-700
+                    text-zinc-950 text-l uppercase tracking-wider rounded-xl py-3"
+                    (click)="buscadorVisible.set(true)">
+                        + Agregar ejercicio
+                </button>
             }
+
+            @if (buscadorVisible()) {
+                <div class="fixed inset-0 z-50 bg-zinc-950">
+                  <app-buscador-ejercicios
+                    (ejercicioSeleccionado)="onEjercicioSeleccionado($event)"
+                    (cerrar)="buscadorVisible.set(false)">
+                  </app-buscador-ejercicios>
+                </div>
+              }
 
         } @else {
             <p>
@@ -169,6 +192,47 @@
             </p>
         }
 
+                @if (ejercicioABorrar()) {
+        <div class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-6"
+            (click)="cancelarBorrarEjercicio()">
+
+            <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-6 w-full max-w-sm"
+                (click)="$event.stopPropagation()">
+
+            <h3 class="text-zinc-100 font-bold uppercase tracking-wider mb-2">
+                ¿Borrar ejercicio?
+            </h3>
+
+            <p class="text-zinc-400 text-sm mb-6">
+                Se borrará
+                <span class="text-red-400 font-medium">
+                {{ ejercicioABorrar()!.nombre }}
+                </span>
+                de tu rutina permanentemente.
+            </p>
+
+            <div class="flex gap-3">
+                <button
+                (click)="cancelarBorrarEjercicio()"
+                class="flex-1 py-3 rounded-xl border border-zinc-700 text-zinc-400
+                        text-sm uppercase tracking-wider">
+                Cancelar
+                </button>
+
+                <button
+                (click)="borrarEjercicioDeRutina()"
+                class="flex-1 py-3 rounded-xl bg-red-700 text-white font-bold
+                        text-sm uppercase tracking-wider hover:bg-red-600">
+                Borrar
+                </button>
+            </div>
+
+            </div>
+
+        </div>
+        }
+
     </div>
 
 </div>
+

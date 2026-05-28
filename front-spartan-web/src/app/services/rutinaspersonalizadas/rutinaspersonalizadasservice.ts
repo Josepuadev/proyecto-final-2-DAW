@@ -16,8 +16,16 @@ export class Rutinaspersonalizadasservice {
     return this.peticionesHttp.get<Rutina[]>(`${this.apiUrl}/rutinas`);
   }
 
-  crearRutina(datos: {titulo: string, descripcion: string }): Observable<Rutina> {
-    return this.peticionesHttp.post<Rutina>(`${this.apiUrl}/rutinas`, datos);
+  getRutinaById(id: number): Observable<Rutina> {
+    return this.peticionesHttp.get<Rutina>(`${this.apiUrl}/rutinas/${id}`);
+  }
+
+  crearRutina(datos: {titulo: string, descripcion: string }): Observable<{rutina: Rutina}> {
+    return this.peticionesHttp.post<{rutina: Rutina}>(`${this.apiUrl}/rutinas`, datos);
+  }
+
+  borrarRutina(idRutina: number): Observable <any> {
+    return this.peticionesHttp.delete(`${this.apiUrl}/rutinas/${idRutina}`);
   }
 
   añadirEjercicio(idRutina: number, datos: {

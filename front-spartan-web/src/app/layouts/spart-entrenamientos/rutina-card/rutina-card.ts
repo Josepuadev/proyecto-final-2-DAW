@@ -26,6 +26,8 @@ export class RutinaCard {
   cargando = signal(false);
 
   // computed() - deriva un valor de otro signal
+  // computed() — se recalcula automáticamente cuando los valores de dentro cambian
+
   claseGiro = computed(() => this.emblemaGirando() ? 'girar' : '');
 
   /*

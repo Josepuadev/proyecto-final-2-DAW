@@ -5,10 +5,14 @@ import { Sesionesservice } from '../../services/sesiones/sesionesservice';
 import { firstValueFrom, map } from 'rxjs';
 import { signal, computed } from '@angular/core';
 import { SerieLocal } from './interfaces/serie-local';
+import { BuscadorEjercicios } from '../../shared/buscador-ejercicios/buscador-ejercicios';
+import { Rutinaspersonalizadasservice } from '../../services/rutinaspersonalizadas/rutinaspersonalizadasservice';
+import { Ejercicio } from '../../interfaces/ejercicio';
+import { RutinaEjercicio } from '../../interfaces/rutina-ejercicio';
 
 @Component({
   selector: 'app-rutinas',
-  imports: [RouterLink],
+  imports: [RouterLink, BuscadorEjercicios],
   templateUrl: './rutinas.html',
   styleUrl: './rutinas.css',
 })
@@ -17,10 +21,13 @@ export class Rutinas {
   private route = inject(ActivatedRoute);
   private idSesion = Number(this.route.snapshot.params['id']);
   private sesionService = inject(Sesionesservice);
+  private rutinasService = inject(Rutinaspersonalizadasservice);
   private router = inject(Router);
 
   ejercicioAbierto = signal<number | null>(null);
   mensajeErrorSerie = signal<string | null>(null);
+  buscadorVisible = signal(false);
+  ejercicioABorrar = signal<RutinaEjercicio | null>(null);
 
   sesionCargada = resource({
     loader: () => firstValueFrom(this.sesionService.getSesion(this.idSesion))
@@ -195,5 +202,66 @@ export class Rutinas {
 
   }
 
+  onEjercicioSeleccionado(ejercicio: Ejercicio): void {
+    this.buscadorVisible.set(false);
+    this.ejercicioAbierto.set(ejercicio.id);
+  
+    // 1. Añadir a memoria para la sesión actual
+    const mapa = this.seriesLocales();
+    mapa.set(ejercicio.id, [{
+      numero_serie: 1,
+      ejercicio_id: ejercicio.id,
+      repeticiones: null,
+      segundos:     null,
+      metros:       null,
+      peso:         null,
+      completada:   false,
+    }]);
+    this.seriesLocales.set(new Map(mapa));
+  
+    // 2. Añadir a la rutina en BD si la sesión tiene rutina asociada
+    const sesion = this.sesionCargada.value();
+    if (!sesion?.rutina_id) return;
+  
+    this.rutinasService.añadirEjercicio(sesion.rutina_id, {
+      ejercicio_id:          ejercicio.id,
+      series:                1,
+      repeticiones_objetivo: 10,
+      peso_objetivo:         0,
+      orden:                 (sesion.rutina?.ejercicios?.length ?? 0) + 1,
+    }).subscribe({
+      next: () => {
+        this.sesionCargada.reload();
+      },
+      error: () => console.error('Error al guardar ejercicio en la rutina')
+    });
+  }
+
+  confirmarBorrarEjercicio(ejercicio: RutinaEjercicio): void {
+    this.ejercicioABorrar.set(ejercicio);
+  }
+
+  cancelarBorrarEjercicio(): void {
+    this.ejercicioABorrar.set(null);
+  }
+
+  borrarEjercicioDeRutina():void {
+    const ejercicio = this.ejercicioABorrar();
+    const sesion = this.sesionCargada.value();
+    if (!ejercicio || !sesion?.rutina_id) return;
+
+    this.rutinasService.quitarEjercicio(sesion.rutina_id, ejercicio.id).subscribe({
+      next: () => {
+        this.ejercicioABorrar.set(null);
+        const mapa = this.seriesLocales();
+        mapa.delete(ejercicio.id);
+        this.seriesLocales.set(new Map(mapa));
+
+        this.sesionCargada.reload();
+      },
+      error: () => console.error('Error al borrar ele ejercicio')
+    });
+    
+  }
 }
 

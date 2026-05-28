@@ -6,6 +6,7 @@ use App\Http\Controllers\RutinaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SesionController;
+use App\Models\Rutina;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -23,10 +24,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/ejercicios', [EjercicioController::class, 'getEjercicios']);
 
     Route::get('/rutinas', [RutinaController::class, 'getRutinasUsuario']);
-    Route::get('/rutinas-espartanas', [RutinaController::class, 'getRutinasEspartanas']);
+    Route::get('/rutinas/{id}', [RutinaController::class, 'getRutina']);
     Route::post('/rutinas', [RutinaController::class, 'crearRutina']);
     Route::post('/rutinas/{idRutina}/ejercicios', [RutinaController::class, 'añadirEjercicio']);
     Route::delete('/rutinas/{idRutina}/ejercicios/{idEjercicio}', [RutinaController::class, 'quitarEjercicio']);
+    Route::delete('/rutinas/{rutina}', [RutinaController::class, 'borrarRutina']);
+
+    Route::get('/rutinas-espartanas', [RutinaController::class, 'getRutinasEspartanas']);
 
     Route::post('/sesiones', [SesionController::class, 'crearSesion']);
     Route::post('/sesiones/{sesion}/guardar', [SesionController::class, 'guardarSesion']);

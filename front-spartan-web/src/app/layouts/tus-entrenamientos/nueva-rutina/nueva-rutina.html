@@ -1,0 +1,117 @@
+<div class="min-h-screen bg-zinc-950 p-6 text-zinc-100">
+
+  <!-- CABECERA -->
+  <div class="mb-6 border-l-4 border-red-600 pl-4">
+    <h1 class="text-2xl font-bold uppercase tracking-widest">
+      Nueva Rutina
+    </h1>
+  </div>
+
+  <!-- ERROR -->
+  @if (mensajesError()) {
+    <div class="bg-red-950 border border-red-800 text-red-400 rounded-xl p-4 mb-4 text-sm">
+      {{ mensajesError() }}
+    </div>
+  }
+
+  <!-- PASO 1 — formulario visible hasta que se crea la rutina -->
+  @if (!rutinaCreada()) {
+    <form [formGroup]="formulario" (ngSubmit)="crearRutina()" class="flex flex-col gap-4">
+
+      <div>
+        <label class="text-zinc-400 text-xs uppercase tracking-wider mb-2 block">
+          Nombre *
+        </label>
+        <input
+          formControlName="nombre"
+          type="text"
+          placeholder="Ej: Mi día de pecho"
+          class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3
+                 text-zinc-100 focus:border-red-600 focus:outline-none">
+      </div>
+
+      <div>
+        <label class="text-zinc-400 text-xs uppercase tracking-wider mb-2 block">
+          Descripción
+        </label>
+        <textarea
+          formControlName="descripcion"
+          placeholder="Describe tu rutina..."
+          rows="3"
+          class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3
+                 text-zinc-100 focus:border-red-600 focus:outline-none resize-none">
+        </textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-red-700 text-white font-bold py-4 rounded-xl
+               uppercase tracking-widest transition-all duration-200 hover:bg-red-600">
+        Crear rutina
+      </button>
+
+    </form>
+  }
+
+  <!-- PASO 2 — lista de ejercicios visible después de crear -->
+  @if (rutinaCreada(); as rutina) {
+
+    <div class="mb-6">
+      <h2 class="text-xl font-bold uppercase tracking-wide text-amber-400">
+        {{ rutina.nombre }}
+      </h2>
+      <p class="text-zinc-500 text-sm mt-1">{{ rutina.descripcion }}</p>
+    </div>
+
+    <!-- Lista de ejercicios -->
+    <div class="flex flex-col gap-3 mb-6">
+      @for (ejercicio of rutina.ejercicios ?? []; track ejercicio.id) {
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
+          <p class="font-medium text-zinc-100 uppercase tracking-wide text-sm">
+            {{ ejercicio.nombre }}
+          </p>
+          <p class="text-zinc-500 text-xs mt-1">
+            {{ ejercicio.pivot.series }} series ·
+            {{ ejercicio.pivot.repeticiones_objetivo }} reps
+          </p>
+        </div>
+      } @empty {
+        <p class="text-zinc-500 text-sm italic text-center py-6">
+          Aún no hay ejercicios — añade el primero
+        </p>
+      }
+    </div>
+
+    <!-- Botón abrir buscador -->
+    <button
+      (click)="buscadorVisible.set(true)"
+      class="w-full border border-dashed border-zinc-700 text-zinc-500
+             text-sm uppercase tracking-wider rounded-xl py-3 mb-4
+             active:border-red-800 active:text-red-500 transition-all duration-200">
+      + Añadir ejercicio
+    </button>
+
+    <!-- Botón ir a entrenar -->
+    @if (rutina.ejercicios && rutina.ejercicios.length > 0) {
+      <button
+        (click)="irAEntrenar()"
+        class="w-full bg-red-700 text-white font-bold py-4 rounded-xl
+               uppercase tracking-widest transition-all duration-200 hover:bg-red-600">
+        ⚔ Ir a entrenar
+      </button>
+      <div class="mt-12"></div>
+    }
+
+  }
+
+  <!-- BUSCADOR — se muestra encima de todo cuando buscadorVisible es true -->
+  @if (buscadorVisible()) {
+    <div class="fixed inset-0 z-50 bg-zinc-950">
+      <app-buscador-ejercicios
+        (ejercicioSeleccionado)="onEjercicioSeleccionado($event)"
+        (cerrar)="buscadorVisible.set(false)">
+      </app-buscador-ejercicios>
+    </div>
+  }
+
+</div>

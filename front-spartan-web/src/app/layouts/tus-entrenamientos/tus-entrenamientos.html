@@ -1,42 +1,135 @@
 <div class="container--wrapper">
 
-
-
-    <div class="slider mt-3">
-        <div class="caja">
-            <div>Pecho</div>
-            <div class="caja--grid">
-                <div class="item--ejercicio"></div>
-                <div class="item--ejercicio"></div>
-                <div class="item--ejercicio"></div>
-                <div class="item--ejercicio"></div>
-            </div>
-            <button routerLink="/rutinas" class=" rounded-2xl py-2">Empezar</button>
+    @if (rutinasUsuario.isLoading()) {
+      <p class="text-zinc-400 mt-10">Cargando tus rutinas...</p>
+    }
+  
+    @if (rutinasUsuario.error()) {
+      <p class="text-red-400 mt-10">Error al cargar las rutinas</p>
+    }
+  
+    @if (rutinasUsuario.value()) {
+  
+      @if (rutinasUsuario.value()!.length === 0) {
+        <!-- Sin rutinas — botón para crear la primera -->
+        <div class="flex flex-col items-center justify-center h-64 gap-4">
+          <p class="text-zinc-500 text-sm uppercase tracking-wider">
+            Aún no tienes rutinas
+          </p>
+          <button
+            routerLink="/tus-entrenamientos/nueva"
+            class="bg-red-700 text-white px-6 py-3 rounded-xl
+                   uppercase tracking-widest text-sm font-bold">
+            + Crear mi primera rutina
+          </button>
         </div>
-        <div class="caja">
-            <div>Espalda</div>
-            <div class="caja--grid">
-                <div class="item--ejercicio"></div>
-                <div class="item--ejercicio"></div>
-                <div class="item--ejercicio"></div>
-                <div class="item--ejercicio"></div>
+  
+      } @else {
+  
+        <!-- Slider de rutinas -->
+        <div class="slider mt-3">
+          @for (rutina of rutinasUsuario.value()!; track rutina.id) {
+            <div class="caja bg-zinc-700">
+  
+              <!-- Icono + nombre -->
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-zinc-800 border text-2xl border-red-600
+                            flex items-center justify-center">
+                  <!-- Aquí irá el lucide icon cuando lo conectemos -->
+                  ⚔
+                </div>
+                <h2 class="text-white text-2xl font-bold uppercase tracking-wide">
+                  {{ rutina.nombre }}
+                </h2>
+              </div>
+  
+              <!-- Preview de ejercicios -->
+              <div class="caja--grid">
+                @for (ejercicio of rutina.ejercicios?.slice(0, 6) ?? []; track ejercicio.id) {
+                  <div class="item--ejercicio flex items-center justify-center bg-zinc-100">
+
+                    <span class="text-zinc-900 text-xs text-center px-1 uppercase tracking-wide">
+                      {{ ejercicio.nombre }}
+                    </span>
+                  </div>
+                }
+              </div>
+  
+              <!-- Info y botón -->
+              <div class="flex justify-between items-center">
+                <span class="text-zinc-100 text-l uppercase">
+                  {{ rutina.ejercicios?.length ?? 0 }} ejercicios 
+                </span>
+                <div class="flex flex-col gap-5">
+                  <button
+                    (click)="empezarRutina(rutina.id, rutina.nombre)"
+                    class="flex-1 rounded-2xl p-2 text-white text-sm font-bold uppercase">
+                    Empezar
+                  </button>
+
+                  <button
+                    (click)="confirmarBorrar(rutina)"
+                    class="px-3 py-2 rounded-2xl border border-zinc-700 text-zinc-100
+                          text-sm uppercase">
+                    Borrar
+                  </button>
+                </div>
+              </div>
+  
             </div>
-            <button routerLink="/rutinas" class=" rounded-2xl py-2">Empezar</button>
+          }
         </div>
-        <div class="caja ">
-            <div>Pierna</div>
-            <div class="caja--grid">
-                <div class="item--ejercicio"></div>
-                <div class="item--ejercicio"></div>
-                <div class="item--ejercicio"></div>
-                <div class="item--ejercicio"></div>
-            </div>
-            <button routerLink="/rutinas" class="rounded-2xl py-2">Empezar</button>
-        </div>
-    </div>
-
-    
-
-
+  
+        <!-- Botón crear nueva rutina -->
+        <button
+          routerLink="/tus-entrenamientos/nueva"
+          class="mt-4 w-[90dvw] max-w-sm border border-dashed border-zinc-700
+                 text-zinc-100 text-xs uppercase tracking-wider rounded-xl py-3
+                 hover:border-red-800 hover:text-red-500 transition-all duration-200">
+          + Nueva rutina
+        </button>
+  
+      }
+  
+    }
+  
     <div class="mt-12">...</div>
-</div>
+
+    <!-- MODAL DE CONFIRMACIÓN -->
+    @if (rutinaABorrar()) {
+      <div class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-6"
+          (click)="cancelarBorrar()">
+
+        <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-6 w-full max-w-sm"
+            (click)="$event.stopPropagation()">
+
+          <h3 class="text-zinc-100 font-bold uppercase tracking-wider mb-2">
+            ¿Borrar rutina?
+          </h3>
+
+          <p class="text-zinc-400 text-sm mb-6">
+            Se borrará <span class="text-red-400 font-medium">{{ rutinaABorrar()!.nombre }}</span>
+            permanentemente. Esta acción no se puede deshacer.
+          </p>
+
+          <div class="flex gap-3">
+            <button
+              (click)="cancelarBorrar()"
+              class="flex-1 py-3 rounded-xl border border-zinc-700 text-zinc-100
+                    text-sm uppercase tracking-wider">
+              Cancelar
+            </button>
+
+            <button
+              (click)="borrarRutina()"
+              class="flex-1 py-3 rounded-xl bg-red-700 text-white font-bold
+                    text-sm uppercase tracking-wider">
+              Borrar
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    }
+  </div>

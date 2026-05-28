@@ -16,6 +16,11 @@ class RutinaController extends Controller
         return $rutinas;
     }
 
+    public function getRutina($id) {
+        $rutina = Rutina::with('ejercicios')->find($id);
+        return response()->json($rutina);
+      }
+
     public function getRutinasEspartanas() {
         $rutinas = Rutina::with('ejercicios')
                             ->where('usuario_id', 1)->get();
@@ -44,6 +49,22 @@ class RutinaController extends Controller
                 'rutina' => $rutina,
             ], 201);
         }
+    }
+
+    public function borrarRutina(Rutina $rutina) {
+
+    if($rutina->usuario_id !== auth()->id()) {
+        return response()->json(['message' => 'No autorizado'], 403);
+    }
+
+    if ($rutina->usuario_id === 1) {
+        return response()->json(['message' => 'No se pueden borrar rutinas espartanas'], 403);
+    }
+
+    $rutina->delete();
+
+    return response()->json(['message' => 'rutina eliminada'], 200);
+
     }
 
     public function añadirEjercicio(Request $request, $idRutina) {
@@ -87,6 +108,15 @@ class RutinaController extends Controller
 
         $ejercicioQuitar = Ejercicio::find($idEjercicio);
         $rutina->ejercicios()->detach($ejercicioQuitar->id);
+
+        // Reordena los ejercicios restantes
+        $ejercicios = $rutina->ejercicios()->orderBy('rutina_ejercicios.orden')->get();
+
+        foreach ($ejercicios as $index => $ejercicio) {
+            $rutina->ejercicios()->updateExistingPivot($ejercicio->id, [
+                'orden' => $index + 1
+            ]);
+        }
 
         return response()->json(['message' => 'Ejercicio eliminado'], 200);
     }
