@@ -17,7 +17,7 @@
     z-index: 10;
 }
 
-.entrenamiento--container a {
+.entrenamiento--container p {
     position: relative;
     z-index: 2;
     text-transform: uppercase;

@@ -18,17 +18,16 @@ export const LAYOUTS_ROUTES: Routes = [
         children: [
             {path: '', component: Entrenamientos},
             {path: 'entrenamientos', component: Entrenamientos},
+            {path: 'perfil', component: Perfil},
             {path: 'tus-entrenamientos', component: TusEntrenamientos},
             {path: 'tus-entrenamientos/nueva', component: NuevaRutina},
-            {path: 'spart-entrenamientos', component: SpartEntrenamientos},
-            {path: 'perfil', component: Perfil},
-            {path: 'ajustes', component: Ajustes},
-            { path: 'ajustes/politica', component: PoliticaPrivacidad },
-            { path: 'ajustes/terminos', component: TerminosCondiciones },
-            
-            
         ]
     },
+    
+    {path: 'spart-entrenamientos', component: SpartEntrenamientos},
+    {path: 'ajustes', component: Ajustes},
+    {path: 'ajustes/politica', component: PoliticaPrivacidad },
+    {path: 'ajustes/terminos', component: TerminosCondiciones },
     {path: 'rutina/:id', component: Rutinas},
     {path: 'buscador-ejercicios', component: BuscadorEjercicios},
 

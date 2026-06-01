@@ -3,10 +3,11 @@ import { Rutinasespartanasservice } from '../../services/rutinasespartanas/rutin
 import { RutinaCard } from './rutina-card/rutina-card';
 import { Rutina } from '../../interfaces/rutina';
 import { firstValueFrom } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-spart-entrenamientos',
-  imports: [RutinaCard],
+  imports: [RutinaCard, RouterLink],
   templateUrl: './spart-entrenamientos.html',
   styleUrl: './spart-entrenamientos.css',
 })

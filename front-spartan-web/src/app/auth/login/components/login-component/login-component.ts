@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Authservice } from '../../../../services/auth/authservice';
@@ -14,7 +14,7 @@ export class LoginComponent {
   private authService = inject(Authservice);
   private router      = inject(Router);
 
-  mensajeError : string | null = null;
+  mensajeError = signal <string | null>(null);
 
   formulario: FormGroup = this.formBuilder.group({
     email:                  [null, [
@@ -61,8 +61,10 @@ export class LoginComponent {
       },
 
       error: (errorDetalles) => {
-        this.mensajeError = 'Error con el inicio de sesion';
-        console.error(errorDetalles);
+        this.mensajeError.set('Error con el inicio de sesion');
+
+        setTimeout( () => this.mensajeError.set(null), 2700);
+        console.error('Eres un inutil!!!',errorDetalles);
       }
     });
 

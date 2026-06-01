@@ -1,7 +1,11 @@
-<ul class="menu">
+<div class="menu">
     <!--
     <a href=""><li>Ágora</li></a>
     -->
-    <a routerLink="/entrenamientos"><li>Palestra</li></a>
-    <a routerLink="/perfil"><li>Perfil</li></a>
-</ul>
+    <div class=" w-full text-center p-3 transition-all duration-500" routerLinkActive="bg-amber-300">
+        <a routerLink="/entrenamientos"><p class="uppercase tracking-wider">Entrenar</p></a>
+    </div>
+    <div class=" w-full text-center p-3 transition-all duration-300" routerLinkActive="bg-red-300">
+        <a routerLink="/perfil"><p class="uppercase tracking-wider">Perfil</p></a>
+    </div>
+</div>
