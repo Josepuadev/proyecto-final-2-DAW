@@ -1,5 +1,9 @@
 <div class="min-h-screen bg-zinc-950 p-6 text-zinc-100">
 
+  <button routerLink="/tus-entrenamientos"
+          class="text-zinc-400 mb-6 flex items-center gap-2 text-lg">
+    ← Volver
+  </button>
   <!-- CABECERA -->
   <div class="mb-6 border-l-4 border-red-600 pl-4">
     <h1 class="text-2xl font-bold uppercase tracking-widest">
@@ -9,7 +13,7 @@
 
   <!-- ERROR -->
   @if (mensajesError()) {
-    <div class="bg-red-950 border border-red-800 text-red-400 rounded-xl p-4 mb-4 text-sm">
+    <div class="bg-red-950 border border-red-800 text-red-400 rounded-xl p-4 mb-4 text-sm animate-fadeIn">
       {{ mensajesError() }}
     </div>
   }
@@ -32,7 +36,7 @@
 
       <div>
         <label class="text-zinc-400 text-xs uppercase tracking-wider mb-2 block">
-          Descripción
+          Descripción *
         </label>
         <textarea
           formControlName="descripcion"

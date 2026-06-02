@@ -9,7 +9,7 @@ import { Sesionesservice } from '../../../services/sesiones/sesionesservice';
 
 @Component({
   selector: 'app-nueva-rutina',
-  imports: [ReactiveFormsModule, BuscadorEjercicios],
+  imports: [ReactiveFormsModule, BuscadorEjercicios, RouterLink],
   templateUrl: './nueva-rutina.html',
   styleUrl: './nueva-rutina.css',
 })
@@ -29,13 +29,19 @@ export class NuevaRutina {
 
   formulario: FormGroup = this.formBuilder.group({
     nombre:      [null, [Validators.required, Validators.maxLength(255)]],
-    descripcion: [null],
+    descripcion: [null, [Validators.required, Validators.maxLength(255)]],
     icono:       ['dumbbell'],
   });
 
   // PASO 1 — crear la rutina vacía en Laravel
   crearRutina(): void {
     if (this.formulario.invalid) {
+      
+      this.mensajesError.set('Rellena Titulo y Descripcion');
+        setTimeout(() => {
+          this.mensajesError.set(null);
+        }, 2000);
+
       this.formulario.markAllAsTouched();
       return;
     }
@@ -44,7 +50,7 @@ export class NuevaRutina {
       next: (respuesta) => {
         this.rutinaCreada.set(respuesta.rutina);
       },
-      error: () => this.mensajesError.set('Error al crear la rutina')
+      error: (err) => console.error('Error: ', err)
     });
   }
 

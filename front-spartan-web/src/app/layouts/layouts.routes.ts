@@ -19,8 +19,8 @@ export const LAYOUTS_ROUTES: Routes = [
             {path: '', component: Entrenamientos},
             {path: 'entrenamientos', component: Entrenamientos},
             {path: 'perfil', component: Perfil},
-            {path: 'tus-entrenamientos', component: TusEntrenamientos},
-            {path: 'tus-entrenamientos/nueva', component: NuevaRutina},
+            
+            
         ]
     },
     
@@ -30,6 +30,9 @@ export const LAYOUTS_ROUTES: Routes = [
     {path: 'ajustes/terminos', component: TerminosCondiciones },
     {path: 'rutina/:id', component: Rutinas},
     {path: 'buscador-ejercicios', component: BuscadorEjercicios},
+    {path: 'tus-entrenamientos/nueva', component: NuevaRutina},
+    {path: 'tus-entrenamientos', component: TusEntrenamientos},
+    
 
 
 ]

@@ -18,12 +18,6 @@
     <div class="orbe orbe--azul">LV 1</div>
   </div>
 
-  <!-- STATS -->
-  <div class="container--stats border w-[90dvw] flex justify-around">
-    <div><p>Medidas</p></div>
-    <div><p>Ejercicios Personalizados</p></div>
-  </div>
-
   <!-- HISTORIAL -->
   <div class="container--historial border w-[90dvw] flex flex-col">
 
@@ -37,12 +31,12 @@
       </div>
     </div>
 
-    <!-- Cargando -->
+
     @if (sesiones.isLoading()) {
       <p class="text-zinc-400 text-sm text-center p-4">Cargando historial...</p>
     }
 
-    <!-- Lista de sesiones -->
+
     @for (sesion of sesiones.value() ?? []; track sesion.id) {
 
       <div class="historial--wrapper border-b">

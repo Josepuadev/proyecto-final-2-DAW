@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { Rutinas } from './layouts/rutinas/rutinas';
-import { RutinasSave } from './layouts/rutinas-save/rutinas-save';
 import { guardiaAutenticacion } from './auth/guards/auth-guard';
 import { guardiaNoReautenticado } from './auth/guards/no-auth-guard';
 
@@ -19,10 +18,6 @@ export const routes: Routes = [
     },
     {
         path: 'rutinas', component: Rutinas,
-        canActivate: [guardiaAutenticacion],
-    },
-    {
-        path: 'rutinas-save', component: RutinasSave,
         canActivate: [guardiaAutenticacion],
     },
     /**
