@@ -35,6 +35,7 @@ export class NuevaRutina {
 
   // PASO 1 — crear la rutina vacía en Laravel
   crearRutina(): void {
+    // Validamos errores
     if (this.formulario.invalid) {
       
       this.mensajesError.set('Rellena Titulo y Descripcion');

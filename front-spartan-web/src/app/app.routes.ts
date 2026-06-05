@@ -20,11 +20,6 @@ export const routes: Routes = [
         path: 'rutinas', component: Rutinas,
         canActivate: [guardiaAutenticacion],
     },
-    /**
-    {
-        path: 'perfil',
-        loadChildren: () => import('./layouts')
-    }
-    */
+
 
 ];

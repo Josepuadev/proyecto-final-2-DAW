@@ -29,9 +29,9 @@
       } @else {
   
         <!-- Slider de rutinas -->
-        <div class="slider mt-3">
+        <div class="slider mt-3 bg-zinc-700">
           @for (rutina of rutinasUsuario.value()!; track rutina.id) {
-            <div class="caja bg-zinc-700">
+            <div class="caja ">
   
               <!-- Icono + nombre -->
               <div class="flex items-center gap-3">
@@ -102,7 +102,7 @@
   
     }
   
-    <div class="mt-12">...</div>
+    <div class="mt-12"></div>
 
     <!-- MODAL DE CONFIRMACIÓN -->
     @if (rutinaABorrar()) {

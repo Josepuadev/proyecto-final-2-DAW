@@ -22,34 +22,20 @@ export class RutinaCard {
   // 2 signals para controlar si el emblema esta girando o esta visible
   emblemaGirando = signal(false);
   modalVisible = signal(false);
-  // 1 signal para mostrar al usuario un output de que esta cargando la rutina y no piense que ha petado
+  // 1 signal para mostrar al usuario un output de que esta 
+  // cargando la rutina y no piense que ha petado
   cargando = signal(false);
 
   // computed() - deriva un valor de otro signal
-  // computed() — se recalcula automáticamente cuando los valores de dentro cambian
+  // computed() — se recalcula automáticamente cuando
+  //  los valores de dentro cambian
 
   claseGiro = computed(() => this.emblemaGirando() ? 'girar' : '');
 
-  /*
-    Usuario hace clic en la insignia
-    onClick() se ejecuta
-    girando.set(true) -> claseGiro() devuelve 'girar'
-                      -> Angular añade clase CSS 'girar' al escudo y la animacion arranca
-  */
+
 
   onClick(): void {
     this.emblemaGirando.set(true);
-
-    /*
-    setTimeout 600ms -> espera que termine la animación
-    girando.set(false) -> claseGiro() devuelve ''
-                       -> clase 'girar' desaparece
-    modalVisible.set(true)     → @if(modalVisible()) es true
-                                  → Angular renderiza el modal
-                                  → animación CSS scale 0→1 arranca
-            ↓
-    Usuario ve el modal
-    */
    
     setTimeout(() => {
       this.emblemaGirando.set(false);

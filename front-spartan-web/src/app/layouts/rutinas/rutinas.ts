@@ -44,7 +44,6 @@ export class Rutinas {
 
     toggleAcordeon(ejercicioId: number, seriesObjetivos: number): void {
 
-      console.log('caca');
       if (this.ejercicioAbierto() === ejercicioId) {
         this.ejercicioAbierto.set(null);
         return;
@@ -54,7 +53,8 @@ export class Rutinas {
 
       if (this.seriesLocales().has(ejercicioId)) return;
 
-      // Creo las series vacias pero con el objetivo a cumplir como plantilla
+      // Creo las series vacias pero con el 
+      // objetivo a cumplir como plantilla
       const seriesVacias: SerieLocal[] = [];
 
       for (let i = 1; i <= seriesObjetivos; i++) {
@@ -77,14 +77,13 @@ export class Rutinas {
     }
 
     actualizarSerie(ejercicioId: number, numeroSerie: number, campo: keyof SerieLocal, valor: any): void {
-      // 1. Obtienes el mapa actual
+      // Obtienes el mapa actual
+      // serie que a modificar el -1 
+      // para acceder siempre a la poisicon adecuada
+      // cosas de arrays...
       const mapa = this.seriesLocales();
       const series = mapa.get(ejercicioId);
-
       if (!series) return;
-
-      // serie que a modificar el -1 para acceder siempre a la poisicon adecuada
-      // cosas de arrays...
       const serieActual = series[numeroSerie - 1];
 
       // nuevo objeto con los campos actuales
@@ -98,7 +97,8 @@ export class Rutinas {
         completada:   serieActual.completada,
       }
 
-      // el as Never es para que trypescript no llore y me deje hacer lo que quieras
+      // el as Never es para que trypescript no llore 
+      // y me deje hacer lo que quiera
       serieActualizada[campo] = valor as never;
 
       series[numeroSerie - 1] = serieActualizada;

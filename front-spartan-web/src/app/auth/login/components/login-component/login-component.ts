@@ -33,7 +33,7 @@ export class LoginComponent {
 
     if (!controlErrores?.invalid || !controlErrores?.touched) return '';
 
-    if (controlErrores.errors?.['required'])    return 'Campo olbligatorio';
+    if (controlErrores.errors?.['required'])    return 'Campo obligatorio';
     if (controlErrores.errors?.['email'])       return 'Email no valido';
     if (controlErrores.errors?.['minlength'])   return 'Mínimo 8 caracteres';
     if (controlErrores.errors?.['pattern'])     return 'Solo letras, numeros y espacios';
@@ -46,6 +46,9 @@ export class LoginComponent {
 
     if(this.formulario.invalid) {
       this.formulario.markAllAsTouched();
+      setTimeout(() => {
+        this.formulario.markAsUntouched();
+      }, 2000);
       return;
     }
     

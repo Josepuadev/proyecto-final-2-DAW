@@ -1,5 +1,5 @@
 
-<div class="h-[50dvh] w-full flex flex-col items-center justify-center text-l">
+<div class="w-full flex flex-col items-center justify-center text-l p-4">
     <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
 
 
@@ -9,7 +9,13 @@
                 <input class="bg-amber-400 rounded-xl text-zinc-800 px-2 py-1 mb-2" 
                        type="email" formControlName="email" id="email">
             </label>
-            <p class="text-red-800 text-xs min-h-4">{{ validadorMensajesError('email') }}</p>
+            <div class="h-12 mt-2">
+                @if (validadorMensajesError('email')) {
+                    <p class="bg-red-950 border border-red-800 text-red-400 rounded-xl p-2 text-sm animate-fadeIn">
+                    {{ validadorMensajesError('email') }}
+                    </p>
+                }
+                </div>
 
 
             <label for="password">
@@ -17,12 +23,22 @@
                 <input class="bg-amber-400 rounded-xl text-zinc-800 px-2 py-1 mb-2" 
                        type="password" formControlName="password" id="password">
             </label>
-            <p class="text-red-800 text-xs min-h-4">{{ validadorMensajesError('password') }}</p>
+            <div class="h-12 mt-2">
+                @if (validadorMensajesError('password')) {
+                    <p class="bg-red-950 border border-red-800 text-red-400 rounded-xl p-2 text-sm animate-fadeIn">
+                    {{ validadorMensajesError('password') }}
+                    </p>
+                }
+            </div>  
         </div>
 
         <br>
-        <div class="text-center">
-            <p class="text-red-800 text-m min-h-4 mb-4">{{ this.mensajeError() }}</p>
+        <div class="text-center mt-2">
+            @if (mensajeError()) {
+                <p class="bg-red-950 border border-red-800 text-red-400 rounded-xl p-2 text-sm animate-fadeIn">
+                    {{ this.mensajeError() }}
+                </p>
+            }
             <button type="submit" class="bg-red-900 px-2 py-2 rounded-2xl">Iniciar Sesión</button>
             
         </div>

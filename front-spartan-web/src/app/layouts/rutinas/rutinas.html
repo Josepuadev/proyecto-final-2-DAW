@@ -6,16 +6,11 @@
                 } @else {
                     <button routerLink="/tus-entrenamientos" class="bg-indigo-500 rounded-2xl px-3 py-2 text-amber-200">INICIO</button>
                 }
-                <div class="px-3 py-2">Tiempo</div>
                 <button (click)="terminarRutina()" 
                 class="bg-red-700 rounded-2xl px-3 py-2 text-white font-bold
                         uppercase tracking-wider text-xs">
                         TERMINAR
                 </button>
-            </div>
-            <div class="flex justify-between w-full p-2">
-                <div>Series</div>
-                <div>Orbes</div>
             </div>
     </div>
 
@@ -26,7 +21,7 @@
         </div>
     }
     
-    <div class="h-screen bg-zinc-900 p-4 text-zinc-100 mt-30">
+    <div class="h-screen bg-zinc-900 p-4 text-zinc-100 mt-20">
 
         @if (sesionCargada.isLoading()) {
             <p class="text-zinc-400">Cargando sesión...</p>

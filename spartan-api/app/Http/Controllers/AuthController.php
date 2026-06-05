@@ -20,13 +20,11 @@ class AuthController extends Controller
                 'password'  => 'required|string|min:8|confirmed',
             ]);
 
-
             $usuario = new User();
             $usuario->name      = $request->name;
             $usuario->email     = $request->email;
             //Guardamos la pass de la request en hash, texto plano es poco seguro.
             $usuario->password  = Hash::make($request->password);
-
             $usuario->save();
             // Enviar correo con mail ( que las imagenes no vayan dentro del correo
             // las dejo enlazadas en una carpeta del servidor)

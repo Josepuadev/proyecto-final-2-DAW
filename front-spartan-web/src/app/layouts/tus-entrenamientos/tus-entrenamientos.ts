@@ -23,21 +23,21 @@ export class TusEntrenamientos {
 
  rutinaABorrar = signal<Rutina | null>(null);
 
- empezarRutina(rutinaId: number, rutinaNombre: string): void {
+  empezarRutina(rutinaId: number, rutinaNombre: string): void {
 
-  this.sesionesService.crearSesion({
-    titulo: rutinaNombre,
-    rutina_id: rutinaId,
-  }).subscribe({
-    next: (respuesta) => {
-      this.router.navigate(['/rutina', respuesta.sesion.id]);
-    },
-    error: (err) => {
-      console.error(err);
-    }
-  });
+    this.sesionesService.crearSesion({
+      titulo: rutinaNombre,
+      rutina_id: rutinaId,
+    }).subscribe({
+      next: (respuesta) => {
+        this.router.navigate(['/rutina', respuesta.sesion.id]);
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
 
- }
+  }
 
  // Abre el modal de confirmación
   confirmarBorrar(rutina: Rutina): void {
